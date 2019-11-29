@@ -4,6 +4,7 @@
 *.pyc
 __pycache__
 db.sqlite3
+*.pg
 media
 
 # Backup files # 
@@ -117,4 +118,4 @@ GitHub.sublime-settings
 
 # Other #
 *~
-key.secret
+config.private
