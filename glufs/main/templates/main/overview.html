@@ -1,6 +1,13 @@
 <p>All meals</p>
 <ol>
+    <table style="width:100%">
 {% for meal in meals %}
-    <li>{{ meal.name }} {{ meal.classification.name }} {{ meal.grade}} </li>
+        <tr>
+            <th>{{ forloop.counter }}</th>
+            <th>{{ meal.name }}</th>
+            <th>{{ meal.classification.name }}</th>
+            <th>{{ meal.grade}}</th>
+        </tr>
 {% endfor %}
+    </table>
 </ol>
