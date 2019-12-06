@@ -1,6 +1,6 @@
 <p>All meals</p>
 <ol>
 {% for meal in meals %}
-    <li>{{ meal.name }}</li>
+    <li>{{ meal.name }} {{ meal.classification.name }} {{ meal.grade}} </li>
 {% endfor %}
 </ol>
