@@ -16,3 +16,9 @@ class Meal(models.Model):
     classification = models.ForeignKey(Classification, on_delete=models.PROTECT, null=False)
     recipe = models.CharField(max_length=1000, null=True)
     notes = models.ManyToManyField(Note)
+
+    def add_note(self, text):
+        note = Note(text=text)
+        note.save()
+        self.notes.add(note)
+        self.save()
