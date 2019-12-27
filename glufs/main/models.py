@@ -1,4 +1,7 @@
 from django.db import models
+import datetime
+
+from django.contrib.postgres.fields import ArrayField
 
 
 class Classification(models.Model):
@@ -16,6 +19,10 @@ class Ingredient(models.Model):
     unit = models.CharField(max_length=20, null=True)
 
 
+class Date(models.Model):
+    date = models.DateField()
+
+
 class Meal(models.Model):
     name = models.CharField(max_length=50)
     grade = models.IntegerField(null=True)
@@ -23,9 +30,16 @@ class Meal(models.Model):
     recipe = models.CharField(max_length=1000, null=True)
     notes = models.ManyToManyField(Note)
     ingredients = models.ManyToManyField(Ingredient)
+    dates = models.ManyToManyField(Date)
 
     def add_note(self, text):
         note = Note(text=text)
         note.save()
         self.notes.add(note)
+        self.save()
+
+    def add_date(self, year, month, day):
+        date = Date(date=datetime.date(year, month, day))
+        date.save()
+        self.dates.add(date)
         self.save()
