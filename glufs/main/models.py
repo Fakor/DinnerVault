@@ -23,6 +23,7 @@ class Meal(models.Model):
     notes = models.ManyToManyField(Note)
     ingredients = models.ManyToManyField(Ingredient)
     dates = models.ManyToManyField(Date)
+    latest_date = models.DateField(null=True)
 
     def add_note(self, text):
         note = Note(text=text)
@@ -35,7 +36,12 @@ class Meal(models.Model):
         date.save()
         self.dates.add(date)
         self.save()
+        self.update_latest_date()
 
-    def latest_date(self):
-        return self.dates.order_by('date').reverse()[0].date
+    def update_latest_date(self):
+        self.latest_date = self.dates.order_by('date').reverse()[0].date
+        self.save()
 
+
+def order_meal_by_date():
+    return Meal.objects.order_by('latest_date')
