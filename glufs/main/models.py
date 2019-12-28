@@ -1,12 +1,6 @@
 from django.db import models
 import datetime
 
-from django.contrib.postgres.fields import ArrayField
-
-
-class Classification(models.Model):
-    name = models.CharField(max_length=10)
-
 
 class Note(models.Model):
     text = models.CharField(max_length=100)
@@ -25,8 +19,6 @@ class Date(models.Model):
 
 class Meal(models.Model):
     name = models.CharField(max_length=50)
-    grade = models.IntegerField(null=True)
-    classification = models.ForeignKey(Classification, on_delete=models.PROTECT, null=False)
     recipe = models.CharField(max_length=1000, null=True)
     notes = models.ManyToManyField(Note)
     ingredients = models.ManyToManyField(Ingredient)
@@ -43,3 +35,7 @@ class Meal(models.Model):
         date.save()
         self.dates.add(date)
         self.save()
+
+    def latest_date(self):
+        return self.dates.order_by('date').reverse()[0].date
+
