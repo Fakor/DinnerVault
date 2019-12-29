@@ -5,8 +5,7 @@
         <tr>
             <th>{{ forloop.counter }}</th>
             <th>{{ meal.name }}</th>
-            <th>{{ meal.classification.name }}</th>
-            <th>{{ meal.grade}}</th>
+            <th>{{ meal.latest_date }}</th>
             <th><a href="{% url 'detail' meal.id %}"> Link </a></th>
         </tr>
 {% endfor %}

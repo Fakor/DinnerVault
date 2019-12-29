@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 
-from .models import Meal
+from .models import Meal, order_meal_by_date
 
 
 def index(request):
@@ -10,7 +10,7 @@ def index(request):
 
 
 def overview(request):
-    context={'meals': Meal.objects.all()}
+    context={'meals': order_meal_by_date()}
     return render(request, 'main/overview.html', context)
 
 
