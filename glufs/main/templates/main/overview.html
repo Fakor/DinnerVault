@@ -4,14 +4,14 @@
         <tr bgcolor="#EEAA00">
             <th></th>
             <th>Namn</th>
-            <th>Senast äten</th>
+            <th>Senast äten (antal ätna)</th>
             <th>Länk</th>
         </tr>
 {% for meal in meals %}
         <tr bgcolor="#EE00AA">
             <th>{{ forloop.counter }}</th>
             <th>{{ meal.name }}</th>
-            <th>{{ meal.latest_date }}</th>
+            <th>{{ meal.latest_date }} ({{ meal.dates.count }})</th>
             <th><a href="{% url 'detail' meal.id %}"> Link </a></th>
         </tr>
 {% endfor %}
