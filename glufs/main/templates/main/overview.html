@@ -1,8 +1,14 @@
 <p>All meals</p>
 <ol>
-    <table style="width:100%">
+    <table style="width:100%", border="3", bordercolor="#010101">
+        <tr bgcolor="#EEAA00">
+            <th></th>
+            <th>Namn</th>
+            <th>Senast äten</th>
+            <th>Länk</th>
+        </tr>
 {% for meal in meals %}
-        <tr>
+        <tr bgcolor="#EE00AA">
             <th>{{ forloop.counter }}</th>
             <th>{{ meal.name }}</th>
             <th>{{ meal.latest_date }}</th>
