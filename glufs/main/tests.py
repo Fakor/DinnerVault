@@ -10,6 +10,7 @@ class MealTestCase(TestCase):
         Meal.objects.create(name="1")
         Meal.objects.create(name="2")
         Meal.objects.create(name="3")
+        Meal.objects.create(name="4")
 
     def test_latest_date(self):
         food = Meal.objects.get(name="1")
@@ -33,6 +34,7 @@ class MealTestCase(TestCase):
 
         meals=order_meal_by_date()
 
-        self.assertEqual(meals[0].name, "2")
-        self.assertEqual(meals[1].name, "3")
-        self.assertEqual(meals[2].name, "1")
+        self.assertEqual(meals[0].name, "4")
+        self.assertEqual(meals[1].name, "2")
+        self.assertEqual(meals[2].name, "3")
+        self.assertEqual(meals[3].name, "1")

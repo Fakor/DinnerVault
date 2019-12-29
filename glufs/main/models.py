@@ -23,7 +23,7 @@ class Meal(models.Model):
     notes = models.ManyToManyField(Note)
     ingredients = models.ManyToManyField(Ingredient)
     dates = models.ManyToManyField(Date)
-    latest_date = models.DateField(null=True)
+    latest_date = models.DateField(default=datetime.date(1,1,1))
 
     def add_note(self, text):
         note = Note(text=text)
