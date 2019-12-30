@@ -2,8 +2,11 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 
+import datetime
+
 from .models import Meal, order_meal_by_date
 from .forms import DetailForm
+
 
 def index(request):
     return HttpResponse("Glufs!")
@@ -27,6 +30,7 @@ def detail(request, meal_id):
         else:
             return HttpResponse("Failed adding date!")
     else:
-        form = DetailForm()
+        now = datetime.date.today()
+        form = DetailForm(initial={'year': now.year, 'month': now.month, 'day': now.day})
         context={'meal': meal, 'form': form}
         return render(request, 'main/detail.html', context)
