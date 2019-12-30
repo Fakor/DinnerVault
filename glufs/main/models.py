@@ -32,7 +32,10 @@ class Meal(models.Model):
         self.save()
 
     def add_date(self, year, month, day):
-        date = Date(date=datetime.date(year, month, day))
+        d = datetime.date(year, month, day)
+        if self.dates.filter(date=d):
+            return
+        date = Date(date=d)
         date.save()
         self.dates.add(date)
         self.save()
@@ -41,6 +44,9 @@ class Meal(models.Model):
     def update_latest_date(self):
         self.latest_date = self.dates.order_by('date').reverse()[0].date
         self.save()
+
+    def times_eaten(self):
+        return self.dates.count()
 
 
 def order_meal_by_date():
