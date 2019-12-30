@@ -1,1 +1,7 @@
 <h1> {{ meal.name }} </h1>
+
+<form action="{% url 'detail' meal.id %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit">
+</form>
