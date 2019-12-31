@@ -26,11 +26,15 @@ def detail(request, meal_id):
             month = int(request.POST.get('date_month'))
             day = int(request.POST.get('date_day'))
             meal.add_date(year, month, day)
-            return HttpResponse("Added date!")
+            form = DetailForm(initial={'date': datetime.date(year, month, day)})
+            message = "Lade till datum {}-{}-{}!".format(year, month, day)
         else:
-            return HttpResponse("Failed adding date!")
+            now = datetime.date.today()
+            form = DetailForm(initial={'date': now})
+            message = "Failed adding date!"
+        context = {'meal': meal, 'form': form, 'message': message}
     else:
         now = datetime.date.today()
         form = DetailForm(initial={'date': now})
         context={'meal': meal, 'form': form}
-        return render(request, 'main/detail.html', context)
+    return render(request, 'main/detail.html', context)

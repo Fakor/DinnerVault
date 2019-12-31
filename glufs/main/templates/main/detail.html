@@ -1,5 +1,9 @@
 <h1> {{ meal.name }} </h1>
 
+{% if message %}
+    <p>{{ message }}</p>
+{% endif %}
+
 <form action="{% url 'detail' meal.id %}" method="post">
     {% csrf_token %}
     {{ form }}
