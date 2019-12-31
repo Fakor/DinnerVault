@@ -6,9 +6,18 @@
 
 <form action="{% url 'detail' meal.id %}" method="post">
     {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Add date">
+    {{ form.date }}
+    <input type="submit" value="Date" name="submit_date">
+    <br>
+    {{ form.new_note }}
+    <input type="submit" value="Note" name="submit_note">
 </form>
+
+{% if meal.notes %}
+    {% for note in meal.notes.all %}
+        <p> {{ note.text }} </p>
+    {% endfor %}
+{% endif %}
 
 <form action="/main/overview">
     <button type="submit">Till översikt</button>
