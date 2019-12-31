@@ -22,9 +22,9 @@ def detail(request, meal_id):
     if request.method == 'POST':
         form = DetailForm(request.POST)
         if form.is_valid():
-            year = int(request.POST.get('year'))
-            month = int(request.POST.get('month'))
-            day = int(request.POST.get('day'))
+            year = int(request.POST.get('date_year'))
+            month = int(request.POST.get('date_month'))
+            day = int(request.POST.get('date_day'))
             meal.add_date(int(year), int(month), int(day))
             return HttpResponse("Added date!")
         else:
