@@ -34,12 +34,13 @@ class Meal(models.Model):
     def add_date(self, year, month, day):
         d = datetime.date(year, month, day)
         if self.dates.filter(date=d):
-            return
+            return False
         date = Date(date=d)
         date.save()
         self.dates.add(date)
         self.save()
         self.update_latest_date()
+        return True
 
     def update_latest_date(self):
         self.latest_date = self.dates.order_by('date').reverse()[0].date

@@ -42,13 +42,13 @@ class MealTestCase(TestCase):
     def test_times_eaten(self):
         f1 = Meal.objects.get(name="1")
 
-        f1.add_date(2019, 12, 1)
+        self.assertTrue(f1.add_date(2019, 12, 1))
         self.assertEqual(f1.times_eaten(), 1)
-        f1.add_date(2019, 10, 1)
+        self.assertTrue(f1.add_date(2019, 10, 1))
         self.assertEqual(f1.times_eaten(), 2)
-        f1.add_date(2019, 11, 1)
+        self.assertTrue(f1.add_date(2019, 11, 1))
 
         self.assertEqual(f1.times_eaten(), 3)
 
-        f1.add_date(2019, 11, 1)
+        self.assertFalse(f1.add_date(2019, 11, 1))
         self.assertEqual(f1.times_eaten(), 3)

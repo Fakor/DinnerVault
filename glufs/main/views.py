@@ -25,9 +25,11 @@ def detail(request, meal_id):
             year = int(request.POST.get('date_year'))
             month = int(request.POST.get('date_month'))
             day = int(request.POST.get('date_day'))
-            meal.add_date(year, month, day)
             form = DetailForm(initial={'date': datetime.date(year, month, day)})
-            message = "Lade till datum {}-{}-{}!".format(year, month, day)
+            if meal.add_date(year, month, day):
+                message = "Lade till datum {}-{}-{}!".format(year, month, day)
+            else:
+                message = "Datum {}-{}-{} tillagd sen tidigare!".format(year, month, day)
         else:
             now = datetime.date.today()
             form = DetailForm(initial={'date': now})
