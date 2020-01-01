@@ -15,7 +15,7 @@
 
 {% if meal.notes %}
     {% for note in meal.notes.all %}
-        <p> {{ note.text }} </p>
+        <p> {{ note.created_at|date:'Y-m-d H:i' }} <br> {{ note.text }} </p>
     {% endfor %}
 {% endif %}
 

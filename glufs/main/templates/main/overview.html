@@ -11,7 +11,7 @@
         <tr bgcolor="#EE00AA">
             <th>{{ forloop.counter }}</th>
             <th>{{ meal.name }}</th>
-            <th>{{ meal.latest_date }} ({{ meal.dates.count }})</th>
+            <th>{{ meal.latest_date|date:'Y-m-d' }} ({{ meal.dates.count }})</th>
             <th><a href="{% url 'detail' meal.id %}"> Link </a></th>
         </tr>
 {% endfor %}

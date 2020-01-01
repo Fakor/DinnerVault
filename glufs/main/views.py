@@ -13,7 +13,7 @@ def index(request):
 
 
 def overview(request):
-    context={'meals': order_meal_by_date()}
+    context = {'meals': order_meal_by_date()}
     return render(request, 'main/overview.html', context)
 
 
