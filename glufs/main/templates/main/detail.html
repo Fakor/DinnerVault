@@ -8,6 +8,9 @@
     {% csrf_token %}
     {{ form.date }}
     <input type="submit" value="Date" name="submit_date">
+</form>
+<form action="{% url 'detail' meal.id %}" method="post">
+    {% csrf_token %}
     <br>
     {{ form.new_note }}
     <input type="submit" value="Note" name="submit_note">

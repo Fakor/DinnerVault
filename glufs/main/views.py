@@ -19,28 +19,26 @@ def overview(request):
 
 def detail(request, meal_id):
     meal = get_object_or_404(Meal, pk=meal_id)
+    form_values = {'date': datetime.date.today()}
+    context = {'meal': meal}
     if request.method == 'POST':
-        form = DetailForm(request.POST)
-        if form.is_valid():
-            year = int(request.POST.get('date_year'))
-            month = int(request.POST.get('date_month'))
-            day = int(request.POST.get('date_day'))
-            form = DetailForm(initial={'date': datetime.date(year, month, day)})
-            if 'submit_note':
+        form_post = DetailForm(request.POST)
+        if form_post.is_valid():
+            if 'submit_note' in request.POST:
                 message = "Ny notering"
                 meal.add_note(request.POST.get('new_note'))
             elif 'submit_date' in request.POST:
+                year = int(request.POST.get('date_year'))
+                month = int(request.POST.get('date_month'))
+                day = int(request.POST.get('date_day'))
+                form_values['date'] = datetime.date(year, month, day)
                 if meal.add_date(year, month, day):
                     message = "Lade till datum {}-{}-{}!".format(year, month, day)
                 else:
                     message = "Datum {}-{}-{} tillagd sen tidigare!".format(year, month, day)
         else:
-            now = datetime.date.today()
-            form = DetailForm(initial={'date': now})
             message = "Failed adding date!"
-        context = {'meal': meal, 'form': form, 'message': message}
-    else:
-        now = datetime.date.today()
-        form = DetailForm(initial={'date': now})
-        context={'meal': meal, 'form': form}
+        context['message'] = message
+    form = DetailForm(initial=form_values)
+    context['form'] = form
     return render(request, 'main/detail.html', context)
