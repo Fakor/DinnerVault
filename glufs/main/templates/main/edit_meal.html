@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit meal</title>
+    <form action="{% url 'create_meal' %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+    </form>
+</head>
+<body>
+
+</body>
+</html>

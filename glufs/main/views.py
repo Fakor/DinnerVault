@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404
 import datetime
 
 from .models import Meal, order_meal_by_date
-from .forms import DetailForm
+from .forms import DetailForm, EditForm
 
 
 def index(request):
@@ -17,6 +17,7 @@ def overview(request):
     return render(request, 'main/overview.html', context)
 
 
+# TODO Split this us so that adding a note and adding a date have different views and forms
 def detail(request, meal_id):
     meal = get_object_or_404(Meal, pk=meal_id)
     form_values = {'date': datetime.date.today()}
@@ -42,3 +43,21 @@ def detail(request, meal_id):
     form = DetailForm(initial=form_values)
     context['form'] = form
     return render(request, 'main/detail.html', context)
+
+
+def create_meal(request):
+    if request.method == 'POST':
+        form_post = EditForm(request.POST)
+        if form_post.is_valid():
+            name = request.POST.get('name')
+            meal = Meal(name=name)
+            meal.save()
+            form = DetailForm(initial={'date': datetime.date.today()})
+            context = {'meal': meal, 'form': form}
+            return render(request, 'main/detail.html', context)
+        else:
+            return HttpResponse("Failed creating meal!")
+    else:
+        form = EditForm()
+        context = {'form': form}
+        return render(request, 'main/edit_meal.html', context)
