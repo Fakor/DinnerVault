@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 
 import datetime
@@ -52,9 +52,7 @@ def create_meal(request):
             name = request.POST.get('name')
             meal = Meal(name=name)
             meal.save()
-            form = DetailForm(initial={'date': datetime.date.today()})
-            context = {'meal': meal, 'form': form}
-            return render(request, 'main/detail.html', context)
+            return redirect('detail', meal_id=(meal.id))
         else:
             return HttpResponse("Failed creating meal!")
     else:
