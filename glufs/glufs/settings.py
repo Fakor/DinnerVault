@@ -28,9 +28,11 @@ with open(os.path.join(BASE_DIR, 'config.private')) as f:
     SECRET_KEY = config["key"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+if config['debug']:
+    DEBUG = True
+    ALLOWED_HOSTS = []
+else:
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 LOGIN_REDIRECT_URL = '/main/overview/'
 LOGOUT_REDIRECT_URL = '/login/'
