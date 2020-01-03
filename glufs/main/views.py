@@ -2,6 +2,8 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 
+from django.contrib.auth.decorators import login_required
+
 import datetime
 
 from .models import Meal, order_meal_by_date
@@ -12,12 +14,14 @@ def index(request):
     return HttpResponse("Glufs!")
 
 
+@login_required
 def overview(request):
     context = {'meals': order_meal_by_date()}
     return render(request, 'main/overview.html', context)
 
 
 # TODO Split this us so that adding a note and adding a date have different views and forms
+@login_required
 def detail(request, meal_id):
     meal = get_object_or_404(Meal, pk=meal_id)
     form_values = {'date': datetime.date.today()}
@@ -45,6 +49,7 @@ def detail(request, meal_id):
     return render(request, 'main/detail.html', context)
 
 
+@login_required
 def create_meal(request):
     if request.method == 'POST':
         form_post = EditForm(request.POST)
