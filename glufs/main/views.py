@@ -16,6 +16,13 @@ def index(request):
 
 @login_required
 def overview(request):
+    if request.method == 'POST':
+        if 'create_meal' in request.POST:
+            return redirect('create_meal')
+        elif 'logout' in request.POST:
+            return redirect('logout')
+        else:
+            return HttpResponse("Cant interpret post message!")
     context = {'meals': order_meal_by_date()}
     return render(request, 'main/overview.html', context)
 

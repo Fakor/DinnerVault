@@ -1,8 +1,7 @@
-<form action="/main/create">
-    <button type="submit">Skapa måltid</button>
-</form>
-<form action="/logout">
-    <button type="submit">Logga ut</button>
+<form action="/main/overview/" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Skapa måltid" name="create_meal">
+    <input type="submit" value="Logga ut" name="logout">
 </form>
 <ol>
     <table style="width:100%", border="3", bordercolor="#010101">
