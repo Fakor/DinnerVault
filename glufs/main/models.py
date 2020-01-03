@@ -42,6 +42,10 @@ class Meal(models.Model):
         self.update_latest_date()
         return True
 
+    def add_date_today(self):
+        now = datetime.date.today()
+        self.add_date(now.year, now.month, now.day)
+
     def update_latest_date(self):
         self.latest_date = self.dates.order_by('date').reverse()[0].date
         self.save()

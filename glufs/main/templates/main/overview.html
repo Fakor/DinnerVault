@@ -3,21 +3,42 @@
     <input type="submit" value="Skapa måltid" name="create_meal">
     <input type="submit" value="Logga ut" name="logout">
 </form>
+
 <ol>
-    <table style="width:100%", border="3", bordercolor="#010101">
+    <table>
         <tr bgcolor="#EEAA00">
-            <th></th>
             <th>Namn</th>
             <th>Senast äten (antal ätna)</th>
-            <th>Länk</th>
         </tr>
 {% for meal in meals %}
-        <tr bgcolor="#EE00AA">
-            <th>{{ forloop.counter }}</th>
-            <th>{{ meal.name }}</th>
-            <th>{{ meal.latest_date|date:'Y-m-d' }} ({{ meal.dates.count }})</th>
-            <th><a href="{% url 'detail' meal.id %}"> Link </a></th>
-        </tr>
+    <tr>
+        <form action="/main/overview/" method="post">
+            {% csrf_token %}
+            <td><button type="submit"
+                        style="height:30;width:200"
+                        value={{ meal.id }}
+                        formmethod="post"
+                        formaction="/main/overview/"
+                        class="btn btn-primary"
+                        name="meal_details"
+            >
+                {{ meal.name }}
+            </button></td>
+            <td width="300" align="center">
+                {{ meal.latest_date|date:'Y-m-d' }} ({{ meal.dates.count }})
+            </td>
+            <td><button type="submit"
+                        style="height:30;width:200"
+                        value={{ meal.id }}
+                        formmethod="post"
+                        formaction="/main/overview/"
+                        class="btn btn-primary"
+                        name="eaten_today">
+                Åt idag
+            </button></td>
+
+        </form>
+    </tr>
 {% endfor %}
     </table>
 </ol>
