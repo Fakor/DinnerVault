@@ -24,12 +24,11 @@ with open(os.path.join(BASE_DIR, 'config.private')) as f:
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-with open(os.path.join(BASE_DIR, 'config.private')) as f:
-    SECRET_KEY = config["key"]
+SECRET_KEY = config["key"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config['debug']
-ALLOWED_HOSTS = ['allowed_hosts']
+ALLOWED_HOSTS = config['allowed_hosts']
 
 LOGIN_REDIRECT_URL = '/main/overview/'
 LOGOUT_REDIRECT_URL = '/login/'
