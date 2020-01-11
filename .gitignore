@@ -119,3 +119,5 @@ GitHub.sublime-settings
 # Other #
 *~
 config.private
+*.swp
+

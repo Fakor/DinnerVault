@@ -2,7 +2,7 @@ from django.test import TestCase
 
 from datetime import date
 
-from main.models import Meal, order_meal_by_date
+from main.models import Meal, order_meal_by_date, create_label, sort_meal_by_labels
 
 
 class MealTestCase(TestCase):
@@ -52,3 +52,33 @@ class MealTestCase(TestCase):
 
         self.assertFalse(f1.add_date(2019, 11, 1))
         self.assertEqual(f1.times_eaten(), 3)
+
+    def test_sort_by_labels(self):
+        f1 = Meal.objects.get(name="1")
+        f2 = Meal.objects.get(name="2")
+        f3 = Meal.objects.get(name="3")
+        f4 = Meal.objects.get(name="4")
+
+        l1 = create_label(text="simple")
+        l2 = create_label(text="fancy")
+        l3 = create_label(text="meat")
+
+        f1.add_label(l1)
+        f1.add_label(l2)
+        f1.add_label(l3)
+
+        f2.add_label(l2)
+
+        f3.add_label(l1)
+        f3.add_label(l2)
+
+        f4.add_label(l2)
+        f4.add_label(l3)
+
+        sorted_1 = sort_meal_by_labels(required=[l1, l2])
+        self.assertEqual(2, len(sorted_1))
+        self.assertTrue(sorted_1.filter(name='1').exists())
+        self.assertTrue(sorted_1.filter(name='3').exists())
+
+
+        

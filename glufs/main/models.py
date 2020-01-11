@@ -17,12 +17,17 @@ class Date(models.Model):
     date = models.DateField()
 
 
+class Label(models.Model):
+    text = models.CharField(max_length=20)
+
+
 class Meal(models.Model):
     name = models.CharField(max_length=50)
     recipe = models.CharField(max_length=1000, null=True)
     notes = models.ManyToManyField(Note)
     ingredients = models.ManyToManyField(Ingredient)
     dates = models.ManyToManyField(Date)
+    labels = models.ManyToManyField(Label)
     latest_date = models.DateField(default=datetime.date(1, 1, 1))
 
     def add_note(self, text):
@@ -53,6 +58,24 @@ class Meal(models.Model):
     def times_eaten(self):
         return self.dates.count()
 
+    def add_label(self, label):
+        self.labels.add(label)
+        self.save()
+
 
 def order_meal_by_date():
     return Meal.objects.order_by('latest_date')
+
+
+def create_label(text):
+    label = Label(text=text)
+    label.save()
+    return label
+
+def sort_meal_by_labels(required=[], blocked=[]):
+    required_ids=[label.id for label in required]
+    objects = Meal.objects.all()
+    for req in required:
+        objects = objects.filter(labels__in=[req])
+    return objects
+
