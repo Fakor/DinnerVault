@@ -72,10 +72,12 @@ def create_label(text):
     label.save()
     return label
 
-def sort_meal_by_labels(required=[], blocked=[]):
+def sort_meal_by_labels(required=[], excluded=[]):
     required_ids=[label.id for label in required]
     objects = Meal.objects.all()
     for req in required:
         objects = objects.filter(labels__in=[req])
+    for excl in excluded:
+        objects = objects.exclude(labels__in=[excl])
     return objects
 

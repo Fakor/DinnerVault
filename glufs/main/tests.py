@@ -62,23 +62,29 @@ class MealTestCase(TestCase):
         l1 = create_label(text="simple")
         l2 = create_label(text="fancy")
         l3 = create_label(text="meat")
+        l4 = create_label(text="hidden")
 
         f1.add_label(l1)
         f1.add_label(l2)
         f1.add_label(l3)
 
         f2.add_label(l2)
+        f2.add_label(l4)
 
         f3.add_label(l1)
         f3.add_label(l2)
 
         f4.add_label(l2)
         f4.add_label(l3)
+        f4.add_label(l4)
 
         sorted_1 = sort_meal_by_labels(required=[l1, l2])
         self.assertEqual(2, len(sorted_1))
         self.assertTrue(sorted_1.filter(name='1').exists())
         self.assertTrue(sorted_1.filter(name='3').exists())
 
+        sorted_2 = sort_meal_by_labels(required=[l3], excluded=[l4])
+        self.assertEqual(1, len(sorted_2))
+        self.assertTrue(sorted_2.filter(name='1').exists())
 
         
