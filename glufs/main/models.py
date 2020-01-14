@@ -66,8 +66,7 @@ class Meal(models.Model):
 def order_meal_by_date():
     return Meal.objects.order_by('latest_date')
 
-
-def create_label(text):
+def create_label_db(text):
     label = Label(text=text)
     label.save()
     return label

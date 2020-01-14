@@ -2,7 +2,7 @@ from django.test import TestCase
 
 from datetime import date
 
-from main.models import Meal, order_meal_by_date, create_label, sort_meal_by_labels
+from main.models import Meal, order_meal_by_date, create_label_db, sort_meal_by_labels
 
 
 class MealTestCase(TestCase):
@@ -59,10 +59,10 @@ class MealTestCase(TestCase):
         f3 = Meal.objects.get(name="3")
         f4 = Meal.objects.get(name="4")
 
-        l1 = create_label(text="simple")
-        l2 = create_label(text="fancy")
-        l3 = create_label(text="meat")
-        l4 = create_label(text="hidden")
+        l1 = create_label_db(text="simple")
+        l2 = create_label_db(text="fancy")
+        l3 = create_label_db(text="meat")
+        l4 = create_label_db(text="hidden")
 
         f1.add_label(l1)
         f1.add_label(l2)

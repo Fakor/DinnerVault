@@ -8,3 +8,4 @@ class DetailForm(forms.Form):
 
 class EditForm(forms.Form):
     name = forms.CharField()
+

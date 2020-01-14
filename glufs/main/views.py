@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 
 import datetime
 
-from .models import Meal, order_meal_by_date
+from .models import Meal, order_meal_by_date, create_label_db
 from .forms import DetailForm, EditForm
 
 
@@ -26,6 +26,8 @@ def overview(request):
         elif 'eaten_today' in request.POST:
             meal = Meal.objects.get(id=request.POST['eaten_today'])
             meal.add_date_today()
+        elif 'create_label' in request.POST:
+            return redirect('create_label')
         else:
             return HttpResponse("Cant interpret post message!")
     context = {'meals': order_meal_by_date()}
@@ -76,3 +78,21 @@ def create_meal(request):
         form = EditForm()
         context = {'form': form}
         return render(request, 'main/edit_meal.html', context)
+
+@login_required
+def create_label(request):
+    if request.method == 'POST':
+        if 'create_label' in request.POST:
+            created_labels=[]
+            label_name = request.POST.get('label_name')
+            label = create_label_db(label_name)
+            for value in request.POST.getlist('checked'):
+                meal = Meal.objects.get(id=int(value))
+                meal.add_label(label)
+                created_labels.append(meal.name)
+        context = {'meals': order_meal_by_date()}
+        return redirect('/main/overview', context)
+    else:
+        context = {'meals': order_meal_by_date()}
+    return render(request, 'main/create_label.html', context)
+
