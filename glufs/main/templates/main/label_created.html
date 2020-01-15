@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <title>Label created</title>
+
+Label created [{{ name }}] for the following meals:
+<br>
+{% for meal in meals %}
+    {{ meal.name }}
+    <br>
+{% endfor %}
+<form action="/main/overview/" method="get">
+    {% csrf_token %}
+    <button type="submit" name="overview" value="true">
+        Overview
+    </button>
+</form>
+</head>
+<body>
+
+</body>
+</html>

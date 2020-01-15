@@ -83,16 +83,19 @@ def create_meal(request):
 def create_label(request):
     if request.method == 'POST':
         if 'create_label' in request.POST:
-            created_labels=[]
+            meals=[]
             label_name = request.POST.get('label_name')
             label = create_label_db(label_name)
             for value in request.POST.getlist('checked'):
                 meal = Meal.objects.get(id=int(value))
                 meal.add_label(label)
-                created_labels.append(meal.name)
-        context = {'meals': order_meal_by_date()}
-        return redirect('/main/overview', context)
+                meals.append(meal)
+            context = {'meals': meals, 'name': label_name}
+            return render(request, 'main/label_created.html', context)
+        else:
+            return HttpResponse("Cant interpret post message!")
     else:
         context = {'meals': order_meal_by_date()}
     return render(request, 'main/create_label.html', context)
 
+    
