@@ -17,17 +17,9 @@ def index(request):
 @login_required
 def overview(request):
     if request.method == 'POST':
-        if 'create_meal' in request.POST:
-            return redirect('create_meal')
-        elif 'logout' in request.POST:
-            return redirect('logout')
-        elif 'meal_details' in request.POST:
-            return redirect('detail', meal_id=(request.POST['meal_details']))
-        elif 'eaten_today' in request.POST:
+        if 'eaten_today' in request.POST:
             meal = Meal.objects.get(id=request.POST['eaten_today'])
             meal.add_date_today()
-        elif 'create_label' in request.POST:
-            return redirect('create_label')
         else:
             return HttpResponse("Cant interpret post message!")
     context = {'meals': order_meal_by_date()}

@@ -1,8 +1,7 @@
-<form action="/main/overview/" method="post">
-    {% csrf_token %}
-    <input type="submit" value="Create meal" name="create_meal">
-    <input type="submit" value="Create label" name="create_label">
-    <input type="submit" value="Logga ut" name="logout">
+<form method="get">
+    <input type="submit" value="Create meal" name="create_meal" onclick='this.form.action="/main/create";'/>
+    <input type="submit" value="Create label" name="create_label" onclick='this.form.action="/main/create_label";'/>
+    <input type="submit" value="Logga ut" name="logout" onclick='this.form.action="/logout";'/>
 </form>
 
 <ol>
@@ -17,9 +16,8 @@
             {% csrf_token %}
             <td><button type="submit"
                         style="height:30;width:200"
-                        value={{ meal.id }}
-                        formmethod="post"
-                        formaction="/main/overview/"
+                        formmethod="get"
+                        formaction="/main/detail/{{ meal.id}}/"
                         class="btn btn-primary"
                         name="meal_details"
             >
