@@ -1,23 +1,29 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
+    {% load static %}
+    <link rel='stylesheet' href="{% static '/main/css/base.css' %}">
     <meta charset="UTF-8">
     <title>Create label</title>
-
-<form action="{% url 'create_label' %}" method="post">
-{% csrf_token %}
-Name <input type="text" name="label_name">
-<br>
-{% for meal in meals %}
-    <input type="checkbox" name="checked" value={{ meal.id }}> {{ meal.name }}
-    <br>
-{% endfor %}
-<button type="submit" name="create_label" value="true">
-    Create label
-</button>
-</form>
 </head>
 <body>
+    <form action="{% url 'create_label' %}" method="post">
+    {% csrf_token %}
+    Name <input type="text" name="label_name">
+    <br>
+    {% for meal in meals %}
+        <p>
+        <span class="checkboxtext">
+        <input type="checkbox" class=largerCheckbox name="checked" value={{ meal.id }}> {{ meal.name }}
+        <br>
+        </span>
+        </p>
+    {% endfor %}
+    <button type="submit" name="create_label" value="true">
+        Create label
+    </button>
+    </form>
 
 </body>
 </html>
+

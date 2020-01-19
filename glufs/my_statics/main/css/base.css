@@ -1,0 +1,16 @@
+input[type=checkbox]{ 
+    transform : scale(2.5); 
+} 
+
+/* Might want to wrap a span around your checkbox text */
+.checkboxtext
+{
+  /* Checkbox text */
+  font-size: 110%;
+  display: inline;
+}
+
+
+p {
+  font-size: 20px;
+}
