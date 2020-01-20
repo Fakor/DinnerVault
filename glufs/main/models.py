@@ -19,6 +19,9 @@ class Date(models.Model):
 
 class Label(models.Model):
     text = models.CharField(max_length=20)
+    color_red = models.IntegerField(default=100)
+    color_green = models.IntegerField(default=100)
+    color_blue = models.IntegerField(default=100)
 
 
 class Meal(models.Model):
