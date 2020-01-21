@@ -23,6 +23,9 @@ class Label(models.Model):
     color_green = models.IntegerField(default=100)
     color_blue = models.IntegerField(default=100)
 
+    def get_color_string(self):
+        return '#{:02X}{:02X}{:02X}'.format(self.color_red, self.color_green, self.color_blue)
+
 
 class Meal(models.Model):
     name = models.CharField(max_length=50)
@@ -82,4 +85,10 @@ def sort_meal_by_labels(required=[], excluded=[]):
     for excl in excluded:
         objects = objects.exclude(labels__in=[excl])
     return objects
+
+def set_label_color(label, red, green, blue):
+    label.red = red
+    label.green = green
+    label.blue = blue
+    label.save()
 

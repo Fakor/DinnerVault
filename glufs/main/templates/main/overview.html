@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    {% load static %}
+    <link rel='stylesheet' href="{% static '/main/css/base.css' %}">
+    <meta charset="UTF-8">
+    <title>Create label</title>
+</head>
+<body>
 <form method="get">
     <input type="submit" value="Create meal" name="create_meal" onclick='this.form.action="/main/create";'/>
     <input type="submit" value="Create label" name="create_label" onclick='this.form.action="/main/create_label";'/>
@@ -37,7 +46,16 @@
             </button></td>
 
         </form>
+        <td>
+            {% for label in meal.labels.all %}
+                <label style="background-color: {{ label.get_color_string }};">{{ label.text }}</label>
+            {% endfor%}
+        </td>
     </tr>
 {% endfor %}
     </table>
 </ol>
+
+</body>
+</html>
+
