@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 import datetime
 
 from .models import Meal, order_meal_by_date, create_label_db
-from .forms import DetailForm, EditForm
+from .forms import DetailForm, EditForm, LabelForm
 
 
 def index(request):
@@ -75,19 +75,20 @@ def create_meal(request):
 def create_label(request):
     if request.method == 'POST':
         if 'create_label' in request.POST:
-            meals=[]
-            label_name = request.POST.get('label_name')
-            label = create_label_db(label_name)
-            for value in request.POST.getlist('checked'):
-                meal = Meal.objects.get(id=int(value))
-                meal.add_label(label)
-                meals.append(meal)
-            context = {'meals': meals, 'name': label_name}
-            return render(request, 'main/label_created.html', context)
+            form=LabelForm(request.POST)
+            if form.is_valid():
+                meals=[]
+                label = create_label_db(form.cleaned_data['text'], form.cleaned_data['red'], form.cleaned_data['green'], form.cleaned_data['blue'])
+                for value in request.POST.getlist('checked'):
+                    meal = Meal.objects.get(id=int(value))
+                    meal.add_label(label)
+                    meals.append(meal)
+                context = {'meals': meals, 'name': form.cleaned_data['text']}
+                return render(request, 'main/label_created.html', context)
         else:
             return HttpResponse("Cant interpret post message!")
-    else:
-        context = {'meals': order_meal_by_date()}
+    form = LabelForm()
+    context = {'meals': order_meal_by_date(), 'form': form}
     return render(request, 'main/create_label.html', context)
 
     

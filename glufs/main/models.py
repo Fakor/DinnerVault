@@ -19,9 +19,9 @@ class Date(models.Model):
 
 class Label(models.Model):
     text = models.CharField(max_length=20)
-    color_red = models.IntegerField(default=100)
-    color_green = models.IntegerField(default=100)
-    color_blue = models.IntegerField(default=100)
+    color_red = models.IntegerField()
+    color_green = models.IntegerField()
+    color_blue = models.IntegerField()
 
     def get_color_string(self):
         return '#{:02X}{:02X}{:02X}'.format(self.color_red, self.color_green, self.color_blue)
@@ -72,8 +72,8 @@ class Meal(models.Model):
 def order_meal_by_date():
     return Meal.objects.order_by('latest_date')
 
-def create_label_db(text):
-    label = Label(text=text)
+def create_label_db(text, red, green, blue):
+    label = Label(text=text, color_red=red, color_green=green, color_blue=blue)
     label.save()
     return label
 

@@ -59,10 +59,10 @@ class MealTestCase(TestCase):
         f3 = Meal.objects.get(name="3")
         f4 = Meal.objects.get(name="4")
 
-        l1 = create_label_db(text="simple")
-        l2 = create_label_db(text="fancy")
-        l3 = create_label_db(text="meat")
-        l4 = create_label_db(text="hidden")
+        l1 = create_label_db("simple", 1, 2, 4)
+        l2 = create_label_db("fancy", 2, 4, 6)
+        l3 = create_label_db("meat", 10, 16, 20)
+        l4 = create_label_db("hidden", 12, 14, 22)
 
         f1.add_label(l1)
         f1.add_label(l2)
