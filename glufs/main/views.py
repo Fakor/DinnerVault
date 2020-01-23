@@ -72,6 +72,17 @@ def create_meal(request):
         return render(request, 'main/edit_meal.html', context)
 
 @login_required
+def edit_meal(request, meal_id):
+    meal = get_object_or_404(Meal, pk=meal_id)
+    if request.method == 'POST':
+        pass
+    else:
+        form = EditForm()
+        form.name = meal.name
+        context = {'form': form}
+        return render(request, 'main/edit_meal.html', context)
+
+@login_required
 def create_label(request):
     if request.method == 'POST':
         if 'create_label' in request.POST:

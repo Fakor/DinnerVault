@@ -9,7 +9,6 @@
 <body>
     <form action="{% url 'create_label' %}" method="post">
         {% csrf_token %}
-<!--    Name <input type="text" name="label_name">-->
         {{ form }}
     <br>
     {% for meal in meals %}

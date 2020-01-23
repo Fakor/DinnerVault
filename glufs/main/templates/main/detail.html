@@ -22,6 +22,13 @@
     {% endfor %}
 {% endif %}
 
-<form action="/main/overview">
-    <button type="submit">Till översikt</button>
+<form method="get">
+    <button type="submit"
+            onclick='this.form.action="/main/overview";'>
+            Overview
+    </button>
+    <button type="submit"
+            onclick='this.form.action="/main/edit_meal/{{ meal.id }}/";'>
+            Edit meal
+    </button>
 </form>
