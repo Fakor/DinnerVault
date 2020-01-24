@@ -1,9 +1,21 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
+<script type="text/javascript">
+    function get_action(is_new, id){
+        if (is_new){
+            return "{% url 'create_meal' %"
+        } else {
+            var str1 = "{% url 'edit_meal/"
+            str1.concat(id, "' %")
+            return "{% url 'edit_meal' %"
+        }
+}
+</script>
+    {% load static %}
     <meta charset="UTF-8">
     <title>Edit meal</title>
-    <form action="{% url 'create_meal' %}" method="post">
+    <form action="" onsubmit="this.action=get_action({{ new }}, {{ id }})" method="post">
         {% csrf_token %}
         {{ form }}
     </form>

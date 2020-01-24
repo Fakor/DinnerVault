@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Label
+from .models import Label, Meal
 
 
 class ColorField(forms.IntegerField):
@@ -16,9 +16,18 @@ class DetailForm(forms.Form):
     new_note = forms.CharField(required=False)
 
 
-class EditForm(forms.Form):
+class EditMealForm(forms.Form):
     name = forms.CharField()
 
+    def __init__(self, *args, meal=None, **kwargs):
+        initial = {}
+        if meal is not None:
+            initial['name']=meal.name
+        super(EditMealForm, self).__init__(*args, initial=initial, **kwargs)
+        for l in Label.objects.all():
+            label_name=l.text
+            self.fields[label_name]=forms.BooleanField(required=False)
+ 
 
 class LabelForm(forms.Form):
     text = forms.CharField(max_length=Label._meta.get_field('text').max_length)
