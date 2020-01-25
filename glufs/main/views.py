@@ -79,7 +79,7 @@ def edit_meal(request, meal_id):
         if form.is_valid():
             return redirect('detail', meal_id=(meal.id))
     else:
-        form = EditMealForm(meal=meal)
+        form = EditMealForm(instance=meal)
         context = {'form': form, 'new': False, 'id': meal.id}
         return render(request, 'main/edit_meal.html', context)
 

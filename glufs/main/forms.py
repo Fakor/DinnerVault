@@ -16,18 +16,24 @@ class DetailForm(forms.Form):
     new_note = forms.CharField(required=False)
 
 
-class EditMealForm(forms.Form):
-    name = forms.CharField()
+class EditMealForm(forms.ModelForm):
+    class Meta:
+        model = Meal
+        fields = ['name']
 
-    def __init__(self, *args, meal=None, **kwargs):
-        initial = {}
-        if meal is not None:
-            initial['name']=meal.name
+    label_pattern='__LABEL__'
+
+    def __init__(self, *args, **kwargs):
+        initial={}
         super(EditMealForm, self).__init__(*args, initial=initial, **kwargs)
         for l in Label.objects.all():
-            label_name=l.text
+            label_name='{}{}'.format(self.label_pattern, l.text)
             self.fields[label_name]=forms.BooleanField(required=False)
- 
+            try:
+                self.fields[label_name].initial=self.instance.have_label(l)
+            except ValueError:
+                pass
+
 
 class LabelForm(forms.Form):
     text = forms.CharField(max_length=Label._meta.get_field('text').max_length)
