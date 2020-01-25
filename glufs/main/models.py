@@ -68,6 +68,9 @@ class Meal(models.Model):
         self.labels.add(label)
         self.save()
 
+    def have_label(self, label):
+        return len(self.labels.filter(id__in=[label.id])) > 0
+
 
 def order_meal_by_date():
     return Meal.objects.order_by('latest_date')

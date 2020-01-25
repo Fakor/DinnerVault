@@ -87,4 +87,8 @@ class MealTestCase(TestCase):
         self.assertEqual(1, len(sorted_2))
         self.assertTrue(sorted_2.filter(name='1').exists())
 
+        self.assertFalse(f2.have_label(l1))
+        self.assertTrue(f2.have_label(l2))
+        self.assertFalse(f2.have_label(l3))
+        self.assertTrue(f2.have_label(l4))
         
