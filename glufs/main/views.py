@@ -58,12 +58,10 @@ def detail(request, meal_id):
 @login_required
 def create_meal(request):
     if request.method == 'POST':
-        form_post = EditMealForm(request.POST)
-        if form_post.is_valid():
-            name = request.POST.get('name')
-            meal = Meal(name=name)
-            meal.save()
-            return redirect('detail', meal_id=(meal.id))
+        form = EditMealForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('detail', meal_id=(form.instance.id))
         else:
             return HttpResponse("Failed creating meal!")
     else:
@@ -77,6 +75,7 @@ def edit_meal(request, meal_id):
     if request.method == 'POST':
         form=EditMealForm(request.POST)
         if form.is_valid():
+            form.update_meal(meal)
             return redirect('detail', meal_id=(meal.id))
     else:
         form = EditMealForm(instance=meal)

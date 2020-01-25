@@ -24,8 +24,7 @@ class EditMealForm(forms.ModelForm):
     label_pattern='__LABEL__'
 
     def __init__(self, *args, **kwargs):
-        initial={}
-        super(EditMealForm, self).__init__(*args, initial=initial, **kwargs)
+        super(EditMealForm, self).__init__(*args, **kwargs)
         for l in Label.objects.all():
             label_name='{}{}'.format(self.label_pattern, l.text)
             self.fields[label_name]=forms.BooleanField(required=False)
@@ -34,6 +33,10 @@ class EditMealForm(forms.ModelForm):
             except ValueError:
                 pass
 
+    def update_meal(self, meal):
+        updated_meal = self.save(commit=False)
+        meal.name = updated_meal.name
+        meal.save()
 
 class LabelForm(forms.Form):
     text = forms.CharField(max_length=Label._meta.get_field('text').max_length)
