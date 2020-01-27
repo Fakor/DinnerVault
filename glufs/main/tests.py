@@ -92,3 +92,12 @@ class MealTestCase(TestCase):
         self.assertFalse(f2.have_label(l3))
         self.assertTrue(f2.have_label(l4))
         
+        self.assertEqual(len(f1.labels.all()), 3)
+        f1.add_label(l1)
+        self.assertEqual(len(f1.labels.all()), 3)
+
+        f1.remove_label(l4)
+        self.assertEqual(len(f1.labels.all()), 3)
+        f1.remove_label(l3)
+        self.assertEqual(len(f1.labels.all()), 2)
+

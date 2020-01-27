@@ -64,9 +64,17 @@ class Meal(models.Model):
     def times_eaten(self):
         return self.dates.count()
 
-    def add_label(self, label):
+    def add_label(self, label, commit=True):
         self.labels.add(label)
-        self.save()
+        if commit:
+            self.save()
+
+    def remove_label(self, label, commit=True):
+        if self.have_label(label):
+            self.labels.remove(label)
+#            self.labels.get(id=label.id).entry_set.clear()
+            if commit:
+                self.save()
 
     def have_label(self, label):
         return len(self.labels.filter(id__in=[label.id])) > 0
