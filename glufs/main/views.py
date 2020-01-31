@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 import datetime
 
 from .models import Meal, order_meal_by_date, create_label_db
-from .forms import DetailForm, EditMealForm, LabelForm
+from .forms import DetailForm, EditMealForm, LabelForm, LabelPickerForm
 
 
 def index(request):
@@ -74,12 +74,15 @@ def edit_meal(request, meal_id):
     meal = get_object_or_404(Meal, pk=meal_id)
     if request.method == 'POST':
         form=EditMealForm(request.POST)
-        if form.is_valid():
+        form_labels=LabelPickerForm(request.POST)
+        if form.is_valid() and form_labels.is_valid():
             form.update_meal(meal)
+            form_labels.update_meal_with_labels(meal)
             return redirect('detail', meal_id=(meal.id))
     else:
         form = EditMealForm(instance=meal)
-        context = {'form': form, 'new': False, 'id': meal.id}
+        form_labels = LabelPickerForm(labels=meal.labels)
+        context = {'form': form, 'new': False, 'id': meal.id, 'form_labels': form_labels}
         return render(request, 'main/edit_meal.html', context)
 
 @login_required

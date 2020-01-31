@@ -2,25 +2,52 @@
 <html lang="sv">
 <head>
 <script type="text/javascript">
-    function get_action(is_new, id){
-        if (is_new){
-            return "{% url 'create_meal' %"
-        } else {
-            var str1 = "{% url 'edit_meal/"
-            str1.concat(id, "' %")
-            return "{% url 'edit_meal' %"
-        }
+function get_action(is_new, id){
+    if (is_new){
+        return "{% url 'create_meal' %"
+    } else {
+        var str1 = "{% url 'edit_meal/"
+        str1.concat(id, "' %")
+        return "{% url 'edit_meal' %"
+    }
 }
 </script>
-    {% load static %}
-    <meta charset="UTF-8">
-    <title>Edit meal</title>
-    <form action="" onsubmit="this.action=get_action({{ new }}, {{ id }})" method="post">
-        {% csrf_token %}
-        {{ form }}
-    </form>
+{% load static %}
+<meta charset="UTF-8">
+<style>
+* {
+    box-sizing: border-box;
+}
+.column {
+    float: left;
+    width: 50%;
+    padding: 10px;
+}
+.row:after {
+    content:"";
+    display:"table";
+    clear:"both";
+}
+</style>
+
+
+<title>Edit meal</title>
 </head>
 <body>
-
+    <form action="" onsubmit="this.action=get_action({{ new }}, {{ id }})" method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="column">
+                {{ form.name.label }} {{ form.name }}
+            </div>
+            <div class="column" style="background-color:#aaa;">
+                <h2>Labels</h2>
+                {% for label in form_labels %}
+                    {{ label }} {{ label.name }}
+                    <br>
+                {% endfor %}
+            </div>
+        </div>
+    </form>
 </body>
 </html>
