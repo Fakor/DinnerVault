@@ -31,6 +31,8 @@ function get_action(is_new, id){
 </style>
 
 
+{% load static %}
+<link rel='stylesheet' href="{% static '/main/css/base.css' %}">
 <title>Edit meal</title>
 </head>
 <body>
@@ -38,13 +40,17 @@ function get_action(is_new, id){
         {% csrf_token %}
         <div class="row">
             <div class="column">
-                {{ form.name.label }} {{ form.name }}
+                <p>{{ form.name.label }} {{ form.name }}</p>
             </div>
             <div class="column" style="background-color:#aaa;">
                 <h2>Labels</h2>
                 {% for label in form_labels %}
-                    {{ label }} {{ label.name }}
+                    <p>
+                    <span class="checkboxtext">
+                        {{ label }} {{ label.name }}
                     <br>
+                    </span>
+                    </p>
                 {% endfor %}
             </div>
         </div>
