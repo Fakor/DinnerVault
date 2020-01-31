@@ -59,14 +59,17 @@ def detail(request, meal_id):
 def create_meal(request):
     if request.method == 'POST':
         form = EditMealForm(request.POST)
-        if form.is_valid():
-            form.save()
+        form_labels=LabelPickerForm(request.POST)
+        if form.is_valid() and form_labels.is_valid():
+            meal=form.save()
+            form_labels.update_meal_with_labels(meal)
             return redirect('detail', meal_id=(form.instance.id))
         else:
             return HttpResponse("Failed creating meal!")
     else:
         form = EditMealForm()
-        context = {'form': form, 'new': True}
+        form_labels = LabelPickerForm()
+        context = {'form': form, 'new': True, 'form_labels': form_labels}
         return render(request, 'main/edit_meal.html', context)
 
 @login_required
