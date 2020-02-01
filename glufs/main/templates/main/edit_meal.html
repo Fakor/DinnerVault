@@ -20,7 +20,7 @@ function get_action(is_new, id){
 }
 .column {
     float: left;
-    width: 50%;
+    width: 33%;
     padding: 10px;
 }
 .row:after {
@@ -36,9 +36,9 @@ function get_action(is_new, id){
 <title>Edit meal</title>
 </head>
 <body>
+        <div class="row">
     <form action="" onsubmit="this.action=get_action({{ new }}, {{ id }})" method="post">
         {% csrf_token %}
-        <div class="row">
             <div class="column">
                 <p>{{ form.name.label }} {{ form.name }}</p>
             </div>
@@ -53,7 +53,28 @@ function get_action(is_new, id){
                     </p>
                 {% endfor %}
             </div>
-        </div>
     </form>
+    <form action="/main/edit_meal/{{ id }}/" method="post">
+        {% csrf_token %}
+            <div class="column" style="background-color:#777">
+                <h2>Dates</h2>
+                {% for date in dates %}
+                    <p>
+                    <span class="checkboxtext">
+                    <input type="checkbox" name="dates" value={{ date.id }}> {{ date.date|date:'Y-m-d' }}
+                    <br>
+                    </span>
+                    </p>
+
+                {% endfor %}
+                <button class="sub"
+                        type="submit"
+                        name="delete_dates"
+                        formaction="/main/edit_meal/{{ id }}/">
+                    Delete dates
+                </button>
+            </div>
+    </form>
+        </div>
 </body>
 </html>

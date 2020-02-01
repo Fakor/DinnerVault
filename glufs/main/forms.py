@@ -30,11 +30,11 @@ class EditMealForm(forms.ModelForm):
 class LabelPickerForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
-        self.labels = kwargs.pop('labels', None)
+        labels = kwargs.pop('labels', None)
         super(LabelPickerForm, self).__init__(*args, **kwargs)
         for l in Label.objects.all():
-            if self.labels:
-                default=l in self.labels.all()
+            if labels:
+                default=l in labels.all()
             else:
                 default=False
             self.fields[l.text] = forms.BooleanField(required=False)
@@ -54,5 +54,4 @@ class LabelForm(forms.Form):
     red = ColorField()
     green= ColorField()
     blue = ColorField()
-
 
