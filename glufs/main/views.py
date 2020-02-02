@@ -91,7 +91,7 @@ def edit_meal(request, meal_id):
             return redirect('detail', meal_id=(meal.id))
     form = EditMealForm(instance=meal)
     form_labels = LabelPickerForm(labels=meal.labels)
-    context = {'form': form, 'new': False, 'id': meal.id, 'form_labels': form_labels, 'dates': meal.dates.all() }
+    context = {'form': form, 'new': False, 'meal': meal, 'form_labels': form_labels, 'dates': meal.dates.all() }
     return render(request, 'main/edit_meal.html', context)
 
 @login_required

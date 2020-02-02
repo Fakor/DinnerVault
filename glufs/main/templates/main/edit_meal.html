@@ -36,8 +36,13 @@ function get_action(is_new, id){
 <title>Edit meal</title>
 </head>
 <body>
-        <div class="row">
-    <form action="" onsubmit="this.action=get_action({{ new }}, {{ id }})" method="post">
+    <div class="row">
+        <form method="get">
+            <input type="submit" value="Overview" onclick='this.form.action="/main/overview";'/>
+        </form>
+    </div>
+    <div class="row">
+        <form action="" onsubmit="this.action=get_action({{ new }}, {{ neal.id }})" method="post">
         {% csrf_token %}
             <div class="column">
                 <p>{{ form.name.label }} {{ form.name }}</p>
@@ -53,28 +58,28 @@ function get_action(is_new, id){
                     </p>
                 {% endfor %}
             </div>
-    </form>
-    <form action="/main/edit_meal/{{ id }}/" method="post">
-        {% csrf_token %}
-            <div class="column" style="background-color:#777">
-                <h2>Dates</h2>
-                {% for date in dates %}
-                    <p>
-                    <span class="checkboxtext">
-                    <input type="checkbox" name="dates" value={{ date.id }}> {{ date.date|date:'Y-m-d' }}
-                    <br>
-                    </span>
-                    </p>
+        </form>
+        <form action="/main/edit_meal/{{ meal.id }}/" method="post">
+            {% csrf_token %}
+                <div class="column" style="background-color:#777">
+                    <h2>Dates</h2>
+                    {% for date in dates %}
+                        <p>
+                        <span class="checkboxtext">
+                        <input type="checkbox" name="dates" value={{ date.id }}> {{ date.date|date:'Y-m-d' }}
+                        <br>
+                        </span>
+                        </p>
 
-                {% endfor %}
-                <button class="sub"
-                        type="submit"
-                        name="delete_dates"
-                        formaction="/main/edit_meal/{{ id }}/">
-                    Delete dates
-                </button>
-            </div>
-    </form>
-        </div>
+                    {% endfor %}
+                    <button class="sub"
+                            type="submit"
+                            name="delete_dates"
+                            formaction="/main/edit_meal/{{ meal.id }}/">
+                        Delete dates
+                    </button>
+                </div>
+        </form>
+    </div>
 </body>
 </html>
