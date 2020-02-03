@@ -1,34 +1,46 @@
-<h1> {{ meal.name }} </h1>
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    {% load static %}
+</head>
 
-{% if message %}
-    <p>{{ message }}</p>
-{% endif %}
+<body>
+    <div class="header">
+        <img src="{% static '/main/images/logo.png' %}">
+    </div>
+    <h1> {{ meal.name }} </h1>
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
 
-<form action="{% url 'detail' meal.id %}" method="post">
-    {% csrf_token %}
-    {{ form.date }}
-    <input type="submit" value="Date" name="submit_date">
-</form>
-<form action="{% url 'detail' meal.id %}" method="post">
-    {% csrf_token %}
-    <br>
-    {{ form.new_note }}
-    <input type="submit" value="Note" name="submit_note">
-</form>
+    <form action="{% url 'detail' meal.id %}" method="post">
+        {% csrf_token %}
+        {{ form.date }}
+        <input type="submit" value="Date" name="submit_date">
+    </form>
+    <form action="{% url 'detail' meal.id %}" method="post">
+        {% csrf_token %}
+        <br>
+        {{ form.new_note }}
+        <input type="submit" value="Note" name="submit_note">
+    </form>
 
-{% if meal.notes %}
-    {% for note in meal.notes.all %}
-        <p> {{ note.created_at|date:'Y-m-d H:i' }} <br> {{ note.text }} </p>
-    {% endfor %}
-{% endif %}
+    {% if meal.notes %}
+        {% for note in meal.notes.all %}
+            <p> {{ note.created_at|date:'Y-m-d H:i' }} <br> {{ note.text }} </p>
+        {% endfor %}
+    {% endif %}
 
-<form method="get">
-    <button type="submit"
-            onclick='this.form.action="/main/overview";'>
-            Overview
-    </button>
-    <button type="submit"
-            onclick='this.form.action="/main/edit_meal/{{ meal.id }}/";'>
-            Edit meal
-    </button>
-</form>
+    <form method="get">
+        <button type="submit"
+                onclick='this.form.action="/main/overview";'>
+                Overview
+        </button>
+        <button type="submit"
+                onclick='this.form.action="/main/edit_meal/{{ meal.id }}/";'>
+                Edit meal
+        </button>
+    </form>
+</body>
+</html>
+

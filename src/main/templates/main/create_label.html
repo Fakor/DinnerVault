@@ -7,6 +7,9 @@
     <title>Create label</title>
 </head>
 <body>
+    <div class="header">
+        <img src="{% static '/main/images/logo.png' %}">
+    </div>
     <form action="{% url 'create_label' %}" method="post">
         {% csrf_token %}
         {{ form }}

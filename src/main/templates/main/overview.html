@@ -7,6 +7,9 @@
     <title>Create label</title>
 </head>
 <body>
+    <div class="header">
+        <img src="{% static '/main/images/logo.png' %}">
+    </div>
 <form method="get">
     <input type="submit" value="Create meal" name="create_meal" onclick='this.form.action="/main/create";'/>
     <input type="submit" value="Create label" name="create_label" onclick='this.form.action="/main/create_label";'/>
