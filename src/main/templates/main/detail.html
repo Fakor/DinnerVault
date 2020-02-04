@@ -2,12 +2,14 @@
 <html lang="sv">
 <head>
     {% load static %}
+    <link rel='stylesheet' href="{% static '/main/css/base.css' %}">
+    <script src="{% static '/main/js/base.js' %}"></script>
 </head>
 
 <body>
-    <div class="header">
-        <img src="{% static '/main/images/logo.png' %}">
-    </div>
+    <script>
+        create_header("{% static '/main/images/logo.png' %}");
+    </script>
     <h1> {{ meal.name }} </h1>
     {% if message %}
         <p>{{ message }}</p>

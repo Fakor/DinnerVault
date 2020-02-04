@@ -3,13 +3,14 @@
 <head>
     {% load static %}
     <link rel='stylesheet' href="{% static '/main/css/base.css' %}">
+    <script src="{% static '/main/js/base.js' %}"></script>
     <meta charset="UTF-8">
     <title>Create label</title>
 </head>
 <body>
-    <div class="header">
-        <img src="{% static '/main/images/logo.png' %}">
-    </div>
+    <script>
+        create_header("{% static '/main/images/logo.png' %}");
+    </script>
     <form action="{% url 'create_label' %}" method="post">
         {% csrf_token %}
         {{ form }}

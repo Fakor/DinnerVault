@@ -12,7 +12,6 @@ function get_action(is_new, id){
     }
 }
 </script>
-{% load static %}
 <meta charset="UTF-8">
 <style>
 * {
@@ -33,12 +32,13 @@ function get_action(is_new, id){
 
 {% load static %}
 <link rel='stylesheet' href="{% static '/main/css/base.css' %}">
+<script src="{% static '/main/js/base.js' %}"></script>
 <title>Edit meal</title>
 </head>
 <body>
-    <div class="header">
-        <img src="{% static '/main/images/logo.png' %}">
-    </div>
+    <script>
+        create_header("{% static '/main/images/logo.png' %}");
+    </script>
     <div class="row">
         <form method="get">
             <input type="submit" value="Overview" onclick='this.form.action="/main/overview";'/>
