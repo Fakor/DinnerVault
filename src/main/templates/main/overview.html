@@ -3,19 +3,17 @@
 <head>
     {% load static %}
     <link rel='stylesheet' href="{% static '/main/css/base.css' %}">
+    <script src="{% static '/main/js/base.js' %}"></script>
     <meta charset="UTF-8">
     <title>Create label</title>
 </head>
 <body>
-    <div class="header">
-        <img src="{% static '/main/images/logo.png' %}">
-    </div>
-<form method="get">
-    <input type="submit" value="Create meal" name="create_meal" onclick='this.form.action="/main/create";'/>
-    <input type="submit" value="Create label" name="create_label" onclick='this.form.action="/main/create_label";'/>
-    <input type="submit" value="Logout" name="logout" onclick='this.form.action="/logout";'/>
-</form>
-
+    <script>
+        create_header("{% static '/main/images/logo.png' %}");
+        create_top_button("Create meal", "/main/create");
+        create_top_button("Create label", "/main/create_label");
+        create_top_button("Logout", "/logout");
+    </script>
 <ol>
     <table>
         <tr bgcolor="#EEAA00">

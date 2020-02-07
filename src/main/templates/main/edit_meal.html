@@ -38,12 +38,9 @@ function get_action(is_new, id){
 <body>
     <script>
         create_header("{% static '/main/images/logo.png' %}");
+        create_top_button("Overview", "/main/overview");
+        create_top_button("Logout", "/logout");
     </script>
-    <div class="row">
-        <form method="get">
-            <input type="submit" value="Overview" onclick='this.form.action="/main/overview";'/>
-        </form>
-    </div>
     <div class="row">
         <form action="" onsubmit="this.action=get_action({{ new }}, {{ neal.id }})" method="post">
         {% csrf_token %}

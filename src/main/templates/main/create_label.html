@@ -10,6 +10,8 @@
 <body>
     <script>
         create_header("{% static '/main/images/logo.png' %}");
+        create_top_button("Overview", "/main/overview");
+        create_top_button("Logout", "/logout");
     </script>
     <form action="{% url 'create_label' %}" method="post">
         {% csrf_token %}
