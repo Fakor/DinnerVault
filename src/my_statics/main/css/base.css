@@ -11,6 +11,11 @@ input[type=checkbox]{
 }
 
 
+body {
+    background-color: #EEEEEE;
+    color: #111111;
+}
+
 p {
   font-size: 20px;
 }
