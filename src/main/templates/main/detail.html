@@ -9,9 +9,9 @@
 <body>
     <script>
         create_header("{% static '/main/images/logo.png' %}");
-        create_top_button("Overview", "/main/overview");
-        create_top_button("Edit meal", "/main/edit_meal/{{ meal.id }}/");
-        create_top_button("Logout", "/logout");
+        add_header_button("Overview", "/main/overview");
+        add_header_button("Edit meal", "/main/edit_meal/{{ meal.id }}/");
+        add_header_button("Logout", "/logout");
     </script>
     <h1> {{ meal.name }} </h1>
     {% if message %}
