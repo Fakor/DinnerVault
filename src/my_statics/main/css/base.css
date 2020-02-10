@@ -16,6 +16,10 @@ body {
     color: #111111;
 }
 
+div.header {
+    background-color: #95C95C;
+}
+
 p {
   font-size: 20px;
 }
