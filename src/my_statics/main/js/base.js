@@ -4,26 +4,21 @@ function create_header(path) {
     header.setAttribute("id", "header");
     img = document.createElement("img");
     img.setAttribute("src", path);
-    header.appendChild(img);
-    let row=document.createElement("div");
-    row.setAttribute("class", "row");
 
     let l_div=document.createElement("div");
-    l_div.setAttribute("class", "column");
     l_div.setAttribute("align", "left");
     l_div.setAttribute("id", "head_l");
 
     let r_div=document.createElement("div");
-    r_div.setAttribute("class", "column");
     r_div.setAttribute("align", "right");
     r_div.setAttribute("id", "head_r");
 
-    row.appendChild(l_div);
-    row.appendChild(r_div);
-    header.appendChild(row);
-
+    header.appendChild(r_div);
+    header.appendChild(img);
+    header.appendChild(l_div);
 
     document.body.appendChild(header);
+
     add_header_button("Overview", "/main/overview");
     add_header_button("Create dinner", "/main/create");
     add_header_button("Create label", "/main/create_label");
