@@ -13,21 +13,6 @@ function get_action(is_new, id){
 }
 </script>
 <meta charset="UTF-8">
-<style>
-* {
-    box-sizing: border-box;
-}
-.column {
-    float: left;
-    width: 33%;
-    padding: 10px;
-}
-.row:after {
-    content:"";
-    display:"table";
-    clear:"both";
-}
-</style>
 
 
 {% load static %}
@@ -38,8 +23,6 @@ function get_action(is_new, id){
 <body>
     <script>
         create_header("{% static '/main/images/logo.png' %}");
-        add_header_button("Overview", "/main/overview");
-        add_header_button("Logout", "/logout");
     </script>
     <div class="row">
         <form action="" onsubmit="this.action=get_action({{ new }}, {{ neal.id }})" method="post">
