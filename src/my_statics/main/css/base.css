@@ -1,3 +1,11 @@
+:root {
+    --c1: #95C95C;
+    --c2: #9AC09A;
+    --c3: #4CAF50;
+    --c4: #3B9E4F;
+}
+
+
 input[type=checkbox]{ 
     transform : scale(2.5); 
 } 
@@ -12,12 +20,12 @@ input[type=checkbox]{
 
 
 body {
-    background-color: #9AC09A;
+    background-color: var(--c2);
     color: #111111;
 }
 
 div.header {
-    background-color: #95C95C;
+    background-color: var(--c1);
 }
 
 p {
@@ -25,7 +33,7 @@ p {
 }
 
 button.top {
-  background-color: #4CAF50; /* Green */
+  background-color: var(--c3);
   color: black;
   text-align: center;
   font-size: 16px;
@@ -36,17 +44,13 @@ button.top {
   padding: 0px 0px;
   margin-left: 0.3em;
   margin-bottom: 0.3em;
-  border: 4px solid #3B9E4F;
+  border: 4px solid var(--c4);
   border-radius: 5px;
   text-shadow:2px 3px 4px #2b665e;
 }
 
-button.top_right{
-  border: 4px solid #FFFF4F;
-}
-
 button.sub {
-  background-color: #4CAF50; /* Green */
+  background-color: var(--c3); 
   border: none;
   color: white;
   padding: 15px 32px;
@@ -55,3 +59,15 @@ button.sub {
   display: inline-block;
   font-size: 16px;
 }
+
+button.dinner {
+  background-color: var(--c4); /* Green */
+  color: black;
+  height: 60px;
+  width: 300px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  border: 4px solid black;
+}
+

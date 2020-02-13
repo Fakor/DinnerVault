@@ -22,10 +22,9 @@
         <form action="/main/overview/" method="post">
             {% csrf_token %}
             <td><button type="submit"
-                        style="height:30;width:200"
                         formmethod="get"
                         formaction="/main/detail/{{ meal.id}}/"
-                        class="btn btn-primary"
+                        class="dinner"
                         name="meal_details"
             >
                 {{ meal.name }}
