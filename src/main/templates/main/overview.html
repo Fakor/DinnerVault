@@ -33,14 +33,14 @@
                         name="eaten_today">
                 Ate today
             </button></td>
-            <td width="300" align="center">
+            <td align="center">
                 {{ meal.latest_date|date:'Y-m-d' }} ({{ meal.dates.count }})
             </td>
 
         </form>
         <td>
             {% for label in meal.labels.all %}
-                <label style="background-color: {{ label.get_color_string }};">{{ label.text }}</label>
+                <label class="dinner_label" style="background-color: {{ label.get_color_string }};">{{ label.text }}</label>
             {% endfor%}
         </td>
     </tr>
