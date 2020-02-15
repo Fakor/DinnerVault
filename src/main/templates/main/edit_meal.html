@@ -22,7 +22,12 @@ function get_action(is_new, id){
 </head>
 <body>
     <script>
-        create_header("{% static '/main/images/logo.png' %}");
+        is_new = '{{ new }}';
+        if(is_new == "True"){
+            create_header("{% static '/main/images/logo.png' %}", "Create dinner");
+        } else {
+            create_header("{% static '/main/images/logo.png' %}", "Edit dinner");
+        }
     </script>
     <div class="row">
         <form action="" onsubmit="this.action=get_action({{ new }}, {{ neal.id }})" method="post">

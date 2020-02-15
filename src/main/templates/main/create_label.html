@@ -9,7 +9,7 @@
 </head>
 <body>
     <script>
-        create_header("{% static '/main/images/logo.png' %}");
+        create_header("{% static '/main/images/logo.png' %}", "Create label");
     </script>
     <form action="{% url 'create_label' %}" method="post">
         {% csrf_token %}

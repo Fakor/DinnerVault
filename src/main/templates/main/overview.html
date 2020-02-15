@@ -9,15 +9,10 @@
 </head>
 <body>
     <script>
-        create_header("{% static '/main/images/logo.png' %}");
+        create_header("{% static '/main/images/logo.png' %}", "Overview");
     </script>
 <ol>
     <table>
-        <tr bgcolor="#EEAA00">
-            <th>Namn</th>
-            <th></th>
-            <th>Senast äten (antal ätna)</th>
-        </tr>
 {% for meal in meals %}
     <tr>
         <form action="/main/overview/" method="post">

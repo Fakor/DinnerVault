@@ -35,6 +35,13 @@ p {
   font-size: 20px;
 }
 
+h2 {
+  display: inline;
+  padding: 0px 100px;
+  font-family: FreeMono;
+  font-size: 28px;
+}
+
 button.top {
   background-color: var(--c3);
   color: black;
