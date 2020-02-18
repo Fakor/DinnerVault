@@ -5,6 +5,7 @@
     --c4: #3B9E4F;
 
     --dinnerHeight: 60px;
+    --labelHeight: 40px;
 }
 
 
@@ -95,11 +96,12 @@ label.dinner_label {
   font-family: FreeMono;
   font-weight: bold;
   color: black;
-  height: 40px;
+  height: var(--labelHeight);
   width: 140px;
   line-height: 40px;
   border: 2px solid black;
   border-radius:2px;
   box-shadow:inset 2px -2px 2px 2px #111111;
 }
+
 

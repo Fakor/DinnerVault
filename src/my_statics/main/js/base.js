@@ -48,3 +48,47 @@ function add_button_by_id(text, path, el_id) {
     div = document.getElementById(el_id);
     div.append(button);
 }
+
+function create_date_picker(form_id) {
+    let date_pick = document.createElement("select");
+    date_pick.setAttribute("form", form_id);
+    date_pick.setAttribute("name", "date_pick");
+
+    today = new Date();
+
+    var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    add_option(date_pick, "Today (" + date_string(today) + ")",  date_string(today));
+    var tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate()-1);
+    add_option(date_pick, "Yesterday (" + date_string(tomorrow) + ")",  date_string(tomorrow));
+
+    var i;
+    for(i=2; i < 9; ++i){
+        var d = new Date(); 
+        d.setDate(d.getDate()-i);
+        let day_s = days[d.getDay()];
+        add_option(date_pick, day_s + " (" + date_string(d) + ")", date_string(d));
+    }
+
+    let submit = document.createElement("input");
+    submit.setAttribute("type", "submit");
+    submit.setAttribute("value", "Add date");
+    submit.setAttribute("name", "submit_date");
+    submit.setAttribute("form", form_id);
+
+    document.body.append(date_pick);
+    document.body.append(submit);
+}
+
+function add_option(selector, text, value){
+    option = document.createElement("option");
+    option.setAttribute("value", value);
+    option.innerHTML = text;
+    selector.append(option);
+}
+
+function date_string(date){
+    return date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
+}
+
+

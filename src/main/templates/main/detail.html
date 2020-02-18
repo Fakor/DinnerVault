@@ -8,17 +8,17 @@
 
 <body>
     <script>
-        create_header("{% static '/main/images/logo.png' %}", "Detail");
+        create_header("{% static '/main/images/logo.png' %}", '{{ meal.name }}');
     </script>
-    <h1> {{ meal.name }} </h1>
     {% if message %}
         <p>{{ message }}</p>
     {% endif %}
 
-    <form action="{% url 'detail' meal.id %}" method="post">
+    <form action="{% url 'detail' meal.id %}" method="post" id=date_picker>
         {% csrf_token %}
-        {{ form.date }}
-        <input type="submit" value="Date" name="submit_date">
+        <script>
+            create_date_picker('date_picker')
+        </script>
     </form>
     <form action="{% url 'detail' meal.id %}" method="post">
         {% csrf_token %}

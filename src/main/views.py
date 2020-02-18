@@ -36,17 +36,16 @@ def detail(request, meal_id):
         form_post = DetailForm(request.POST)
         if form_post.is_valid():
             if 'submit_note' in request.POST:
-                message = "Ny notering"
+                message = "New note"
                 meal.add_note(request.POST.get('new_note'))
             elif 'submit_date' in request.POST:
-                year = int(request.POST.get('date_year'))
-                month = int(request.POST.get('date_month'))
-                day = int(request.POST.get('date_day'))
+                date = request.POST.get('date_pick')
+                year, month, day = [int(el) for el in date.split('-')]
                 form_values['date'] = datetime.date(year, month, day)
                 if meal.add_date(year, month, day):
-                    message = "Lade till datum {}-{}-{}!".format(year, month, day)
+                    message = "Added date {}-{}-{}!".format(year, month, day)
                 else:
-                    message = "Datum {}-{}-{} tillagd sen tidigare!".format(year, month, day)
+                    message = "Date {}-{}-{} is already added!".format(year, month, day)
         else:
             message = "Failed adding date!"
         context['message'] = message
