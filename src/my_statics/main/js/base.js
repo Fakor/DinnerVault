@@ -53,6 +53,7 @@ function create_date_picker(form_id) {
     let date_pick = document.createElement("select");
     date_pick.setAttribute("form", form_id);
     date_pick.setAttribute("name", "date_pick");
+    date_pick.setAttribute("class", "date");
 
     today = new Date();
 

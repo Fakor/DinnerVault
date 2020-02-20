@@ -104,4 +104,14 @@ label.dinner_label {
   box-shadow:inset 2px -2px 2px 2px #111111;
 }
 
+select.date {
+  background-color: var(--c3);
+  border: 4px solid var(--c4);
+  height: 40px;
+  color: black;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: Georgia;
+}
 
