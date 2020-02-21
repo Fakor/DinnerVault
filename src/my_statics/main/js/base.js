@@ -41,7 +41,7 @@ function add_header_button_right(text, path){
 
 function add_button_by_id(text, path, el_id) {
     let button=document.createElement("button");
-    button.setAttribute("class", "top");
+    button.setAttribute("class", "top style1");
     button.onclick= function() {location.href=path;};
     button.setAttribute("type", "button");
     button.innerHTML = text;
@@ -53,7 +53,7 @@ function create_date_picker(form_id) {
     let date_pick = document.createElement("select");
     date_pick.setAttribute("form", form_id);
     date_pick.setAttribute("name", "date_pick");
-    date_pick.setAttribute("class", "date");
+    date_pick.setAttribute("class", "date style1");
 
     today = new Date();
 
@@ -75,6 +75,7 @@ function create_date_picker(form_id) {
     submit.setAttribute("type", "submit");
     submit.setAttribute("value", "Add date");
     submit.setAttribute("name", "submit_date");
+    submit.setAttribute("class", "style1");
     submit.setAttribute("form", form_id);
 
     document.body.append(date_pick);
