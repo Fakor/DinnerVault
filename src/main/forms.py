@@ -11,11 +11,6 @@ class ColorField(forms.IntegerField):
             forms.ValidationError( ('Invalid value'), code='invalid')
 
 
-class DetailForm(forms.Form):
-    date = forms.DateField(widget=forms.SelectDateWidget(), required=False)
-    new_note = forms.CharField(required=False)
-
-
 class EditMealForm(forms.ModelForm):
     class Meta:
         model = Meal

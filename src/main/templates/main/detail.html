@@ -24,8 +24,8 @@
     <form action="{% url 'detail' meal.id %}" method="post">
         {% csrf_token %}
         <br>
-        {{ form.new_note }}
-        <input type="submit" value="Note" name="submit_note">
+        <input type="text" name="submit_note" maxlength=300>
+        <input type="submit" value="Note">
     </form>
 
     {% if meal.notes %}
@@ -36,10 +36,7 @@
 
     <form method="get">
         <button type="submit"
-                onclick='this.form.action="/main/overview";'>
-                Overview
-        </button>
-        <button type="submit"
+                class="style1"
                 onclick='this.form.action="/main/edit_meal/{{ meal.id }}/";'>
                 Edit meal
         </button>

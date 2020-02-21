@@ -33,24 +33,18 @@ def detail(request, meal_id):
     form_values = {'date': datetime.date.today()}
     context = {'meal': meal}
     if request.method == 'POST':
-        form_post = DetailForm(request.POST)
-        if form_post.is_valid():
-            if 'submit_note' in request.POST:
-                message = "New note"
-                meal.add_note(request.POST.get('new_note'))
-            elif 'submit_date' in request.POST:
-                date = request.POST.get('date_pick')
-                year, month, day = [int(el) for el in date.split('-')]
-                form_values['date'] = datetime.date(year, month, day)
-                if meal.add_date(year, month, day):
-                    message = "Added date {}-{}-{}!".format(year, month, day)
-                else:
-                    message = "Date {}-{}-{} is already added!".format(year, month, day)
-        else:
-            message = "Failed adding date!"
+        if 'submit_note' in request.POST:
+            message = "New note"
+            meal.add_note(request.POST.get('submit_note'))
+        elif 'submit_date' in request.POST:
+            date = request.POST.get('date_pick')
+            year, month, day = [int(el) for el in date.split('-')]
+            form_values['date'] = datetime.date(year, month, day)
+            if meal.add_date(year, month, day):
+                message = "Added date {}-{}-{}!".format(year, month, day)
+            else:
+                message = "Date {}-{}-{} is already added!".format(year, month, day)
         context['message'] = message
-    form = DetailForm(initial=form_values)
-    context['form'] = form
     return render(request, 'main/detail.html', context)
 
 
