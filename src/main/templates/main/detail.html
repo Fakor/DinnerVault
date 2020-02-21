@@ -24,8 +24,13 @@
     <form action="{% url 'detail' meal.id %}" method="post">
         {% csrf_token %}
         <br>
-        <input type="text" name="submit_note" maxlength=300>
-        <input type="submit" value="Note">
+        <textarea class="note"
+                  name="submit_note"
+                  cols=50
+                  rows=6
+                  maxlength=300></textarea>
+        <br>
+        <input type="submit" value="Add note" class=style1>
     </form>
 
     {% if meal.notes %}
