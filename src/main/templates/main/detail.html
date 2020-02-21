@@ -21,6 +21,9 @@
             create_date_picker('date_picker')
         </script>
     </form>
+        {% for label in meal.labels.all %}
+            <label class="dinner_label" style="background-color: {{ label.get_color_string }};">{{ label.text }}</label>
+        {% endfor%}
     <form action="{% url 'detail' meal.id %}" method="post">
         {% csrf_token %}
         <br>
@@ -38,7 +41,7 @@
             <p> {{ note.created_at|date:'Y-m-d H:i' }} <br> {{ note.text }} </p>
         {% endfor %}
     {% endif %}
-
+    <br>
     <form method="get">
         <button type="submit"
                 class="style1"
