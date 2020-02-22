@@ -105,6 +105,7 @@ label.dinner_label {
     border: 2px solid black;
     border-radius:2px;
     box-shadow:inset 2px -2px 2px 2px #111111;
+    font-size: 18px;
 }
 
 textarea.note{

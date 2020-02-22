@@ -41,7 +41,7 @@ function get_action(is_new, id){
                 {% for label in form_labels %}
                     <p>
                     <span class="checkboxtext">
-                        {{ label }} {{ label.name }}
+                        {{ label }} <label class="dinner_label" style="background-color: {{ label.label.get_color_string }};">{{ label.label.text }}</label>
                     <br>
                     </span>
                     </p>

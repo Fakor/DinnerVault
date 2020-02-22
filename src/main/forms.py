@@ -34,6 +34,7 @@ class LabelPickerForm(forms.Form):
                 default=False
             self.fields[l.text] = forms.BooleanField(required=False)
             self.fields[l.text].initial = default
+            self.fields[l.text].label = l
 
     def update_meal_with_labels(self, meal):
         meal.labels.clear()
