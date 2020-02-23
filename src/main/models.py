@@ -18,7 +18,7 @@ class Date(models.Model):
 
 
 class Label(models.Model):
-    text = models.CharField(max_length=12)
+    text = models.CharField(max_length=12, unique=True)
     color_red = models.IntegerField()
     color_green = models.IntegerField()
     color_blue = models.IntegerField()

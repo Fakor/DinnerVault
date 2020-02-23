@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.db import IntegrityError
 
 from datetime import date
 
@@ -96,8 +97,7 @@ class MealTestCase(TestCase):
         f1.add_label(l1)
         self.assertEqual(len(f1.labels.all()), 3)
 
-        f1.remove_label(l4)
-        self.assertEqual(len(f1.labels.all()), 3)
-        f1.remove_label(l3)
-        self.assertEqual(len(f1.labels.all()), 2)
-
+    def test_label_unique(self):
+        l1 = create_label_db("simple", 1, 2, 4)
+        with self.assertRaises(IntegrityError) as context:
+            l2 = create_label_db("simple", 6, 6, 6)
