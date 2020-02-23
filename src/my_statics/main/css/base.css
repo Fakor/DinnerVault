@@ -44,6 +44,8 @@ div.header {
 
 p {
     font-size: 20px;
+    font-family: FreeMono;
+    font-weight: bold;
 }
 
 h2 {
