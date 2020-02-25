@@ -16,18 +16,16 @@
         {{ form }}
     <br>
     {% for meal in meals %}
-        <p>
-        <span class="checkboxtext">
-        <input type="checkbox" name="checked" value={{ meal.id }}> {{ meal.name }}
+        <input type="checkbox" name="checked" value={{ meal.id }}>
+        <label class="dinner"> {{ meal.name }} </label>
         <br>
-        </span>
-        </p>
     {% endfor %}
     <button type="submit" name="create_label" value="true">
         Create label
     </button>
     </form>
-
+    </table>
+</ol>
 </body>
 </html>
 

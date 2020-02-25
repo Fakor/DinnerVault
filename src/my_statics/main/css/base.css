@@ -11,6 +11,7 @@
 
 input[type=checkbox]{ 
     transform : scale(2.5); 
+    margin-left: 15px;
 } 
 
 /* Might want to wrap a span around your checkbox text */
@@ -85,6 +86,7 @@ button.top {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+    font-family: Georgia;
 }
 
 button.dinner {
@@ -96,7 +98,24 @@ button.dinner {
     font-size: 18px;
     font-weight: bold;
     border: 4px solid black;
+    font-family: Georgia;
 }
+
+label.dinner {
+    display: inline-block;
+    background-color: var(--c4);
+    color: black;
+    height: var(--dinnerHeight);
+    line-height: var(--dinnerHeight);
+    width: 300px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    border: 4px solid black;
+    margin-top: 5px;
+    margin-left: 5px;
+}
+
 
 button.eaten {
     background-color: var(--c3);
