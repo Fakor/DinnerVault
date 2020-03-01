@@ -91,16 +91,15 @@ def edit_meal(request, meal_id):
 def create_label(request):
     if request.method == 'POST':
         if 'create_label' in request.POST:
-            form=LabelForm(request.POST)
-            if form.is_valid():
-                meals=[]
-                label = create_label_db(form.cleaned_data['text'], form.cleaned_data['red'], form.cleaned_data['green'], form.cleaned_data['blue'])
-                for value in request.POST.getlist('checked'):
-                    meal = Meal.objects.get(id=int(value))
-                    meal.add_label(label)
-                    meals.append(meal)
-                context = {'meals': meals, 'name': form.cleaned_data['text']}
-                return render(request, 'main/label_created.html', context)
+            post = request.POST
+            meals=[]
+            label = create_label_db(post['TEXT'], post['RED'], post['GREEN'], post['BLUE'])
+            for value in request.POST.getlist('checked'):
+                meal = Meal.objects.get(id=int(value))
+                meal.add_label(label)
+                meals.append(meal)
+            context = {'meals': meals, 'name': post['TEXT']}
+            return render(request, 'main/label_created.html', context)
         else:
             return HttpResponse("Cant interpret post message!")
     form = LabelForm()

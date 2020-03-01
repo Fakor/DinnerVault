@@ -144,6 +144,27 @@ textarea.note{
     border: 2px solid black;
 }
 
+.colorslider{
+    -webkit-appearance: none;
+    opacity: 1;
+    width: 200px;
+    height: 15px;
+    border-radius: 5px;
+    margin-top:10px;
+}
+
+.red {
+    background: red;
+}
+
+.green {
+    background: green;
+}
+
+.blue {
+    background: blue;
+}
+
 .select.date {
 }
 
