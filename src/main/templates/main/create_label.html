@@ -76,24 +76,6 @@
             </div>
         </form>
     </div>
-    <!--
-    <form action="{% url 'create_label' %}" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <input type="range" min=0 max=255 value=100 class="colorslider red" id=sl_red>
-        <input type="range" min=0 max=255 value=100 class="colorslider green" id=sl_green>
-        <input type="range" min=0 max=255 value=100 class="colorslider blue" id=sl_blue>
-    <br>
-    {% for meal in meals %}
-        <input type="checkbox" name="checked" value={{ meal.id }}>
-        <label class="dinner"> {{ meal.name }} </label>
-        <br>
-    {% endfor %}
-    <button type="submit" name="create_label" value="true">
-        Create label
-    </button>
-    </form>
-    </table>-->
 </ol>
 </body>
 </html>
