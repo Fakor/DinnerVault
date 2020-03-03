@@ -93,12 +93,12 @@ def create_label(request):
         if 'create_label' in request.POST:
             post = request.POST
             meals=[]
-            label = create_label_db(post['TEXT'], post['RED'], post['GREEN'], post['BLUE'])
+            label = create_label_db(post['NEW_TEXT'], post['NEW_RED'], post['NEW_GREEN'], post['NEW_BLUE'])
             for value in request.POST.getlist('checked'):
                 meal = Meal.objects.get(id=int(value))
                 meal.add_label(label)
                 meals.append(meal)
-            context = {'meals': meals, 'name': post['TEXT']}
+            context = {'meals': meals, 'name': post['NEW_TEXT']}
             return render(request, 'main/label_created.html', context)
         else:
             return HttpResponse("Cant interpret post message!")

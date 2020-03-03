@@ -93,4 +93,68 @@ function date_string(date){
     return date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
 }
 
+function id_update_label_display(element, name, display) {
+    element.oninput = function() {
+        update_label_display(name, display);
+    }
+}
+
+function update_label_display(name, display) {
+    sl_r = document.getElementById(name + "_RED");
+    sl_g = document.getElementById(name + "_GREEN");
+    sl_b = document.getElementById(name + "_BLUE");
+    text = document.getElementById(name + "_TEXT");
+    display.innerHTML = text.value;
+
+    style = "background-color: rgb(" + sl_r.value + "," + sl_g.value + "," + sl_b.value + ")"
+    display.setAttribute("style", style);
+}
+
+function create_label_editor(name, parent_id) {
+    p = document.getElementById(parent_id);
+    text = document.createElement("input");
+    text.setAttribute("type", "text");
+    text.setAttribute("name", name + "_TEXT");
+    text.setAttribute("id", name + "_TEXT");
+
+    red = create_color_slider(name, "red");
+    green= create_color_slider(name, "green");
+    blue = create_color_slider(name, "blue");
+
+    display = document.createElement("label");
+    display.setAttribute("class", "dinner_label");
+    display.setAttribute("id", name + "_DISPLAY");
+
+    id_update_label_display(red, name, display);
+    id_update_label_display(green, name, display);
+    id_update_label_display(blue, name, display);
+    id_update_label_display(text, name, display);
+
+    p.appendChild(text);
+    element_new_row(p);
+    p.appendChild(red);
+    element_new_row(p);
+    p.appendChild(green);
+    element_new_row(p);
+    p.appendChild(blue);
+    element_new_row(p);
+    p.appendChild(display);
+}
+
+function create_color_slider(name, color){
+    slider = document.createElement("input");
+    slider.setAttribute("type", "range");
+    slider.setAttribute("id", name + "_" + color.toUpperCase());
+    slider.setAttribute("name", name + "_" + color.toUpperCase());
+    slider.setAttribute("class", "colorslider " + color);
+    slider.setAttribute("min", 0);
+    slider.setAttribute("max", 255);
+
+    return slider;
+}
+
+function element_new_row(element) {
+    element.appendChild(document.createElement("br"));
+}
+
 

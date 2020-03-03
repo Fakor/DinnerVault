@@ -6,27 +6,6 @@
     <script src="{% static '/main/js/base.js' %}"></script>
     <meta charset="UTF-8">
     <title>Create label</title>
-    <script>
-        function id_update_label_display(id) {
-            el = document.getElementById(id);
-            el.oninput = function() {
-                update_label_display();
-            }
-        }
-
-        function update_label_display() {
-            sl_r = document.getElementById("label_red");
-            sl_g = document.getElementById("label_green");
-            sl_b = document.getElementById("label_blue");
-            text = document.getElementById("label_text");
-
-            display = document.getElementById("label_display");
-            display.innerHTML = text.value;
-
-            style = "background-color: rgb(" + sl_r.value + "," + sl_g.value + "," + sl_b.value + ")"
-            display.setAttribute("style", style);
-        }
-    </script>
 </head>
 <body>
     <script>
@@ -34,28 +13,15 @@
     </script>
     <div class="row">
         <form action="{% url 'create_label' %}" method="post">
-            <div class=column>
+            <div class=column id=layout_col>
                 {% csrf_token %}
                 <br>
                 <h2>Layout</h2>
                 <br>
-                <input type=text name=TEXT id=label_text action="javascript:update_label_display()">
-                <br>
-                <input type="range" name=RED min=0 max=255 value=100 class="colorslider red" id=label_red>
-                <br>
-                <input type="range" name=GREEN min=0 max=255 value=100 class="colorslider green" id=label_green>
-                <br>
-                <input type="range" name=BLUE min=0 max=255 value=100 class="colorslider blue" id=label_blue>
-                <br>
-                <label class="dinner_label" id=label_display>
                 <script>
-                    id_update_label_display("label_red");
-                    id_update_label_display("label_green");
-                    id_update_label_display("label_blue");
-                    id_update_label_display("label_text");
-                    update_label_display();
+                    create_label_editor("NEW", "layout_col");
                 </script>
-            </div>
+           </div>
             <div class=column>
                 <br>
                 <h2>Dinners</h2>
