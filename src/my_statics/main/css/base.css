@@ -33,6 +33,11 @@ input[type=checkbox]{
     width: 33%;
 }
 
+.column2 {
+    float: left;
+    width: 50%;
+}
+
 body {
     background-color: var(--c2);
     color: #111111;

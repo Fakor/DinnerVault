@@ -112,6 +112,17 @@ function update_label_display(name, display) {
 
 function create_label_editor(name, parent_id) {
     p = document.getElementById(parent_id);
+    row = document.createElement("div");
+    row.setAttribute("class", "row");
+
+    c1 = document.createElement("div");
+    c1.setAttribute("class", "column2");
+    c1.setAttribute("align", "center");
+
+    c2 = document.createElement("div");
+    c2.setAttribute("class", "column2");
+    c2.setAttribute("align", "center");
+
     text = document.createElement("input");
     text.setAttribute("type", "text");
     text.setAttribute("name", name + "_TEXT");
@@ -125,20 +136,33 @@ function create_label_editor(name, parent_id) {
     display.setAttribute("class", "dinner_label");
     display.setAttribute("id", name + "_DISPLAY");
 
+    submit = document.createElement("button");
+    submit.setAttribute("type", "submit");
+    submit.setAttribute("name", "create_label");
+    submit.setAttribute("class", "style1");
+    submit.setAttribute("value", "true");
+    submit.innerHTML = "Create label";
+
     id_update_label_display(red, name, display);
     id_update_label_display(green, name, display);
     id_update_label_display(blue, name, display);
     id_update_label_display(text, name, display);
 
-    p.appendChild(text);
-    element_new_row(p);
-    p.appendChild(red);
-    element_new_row(p);
-    p.appendChild(green);
-    element_new_row(p);
-    p.appendChild(blue);
-    element_new_row(p);
-    p.appendChild(display);
+    c1.appendChild(text);
+    element_new_row(c1);
+    c1.appendChild(red);
+    element_new_row(c1);
+    c1.appendChild(green);
+    element_new_row(c1);
+    c1.appendChild(blue);
+    element_new_row(c2);
+    c2.appendChild(display);
+    element_new_row(c2);
+    element_new_row(c2);
+    c2.appendChild(submit);
+    row.appendChild(c1);
+    row.appendChild(c2);
+    p.appendChild(row);
 }
 
 function create_color_slider(name, color){
