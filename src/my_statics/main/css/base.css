@@ -159,15 +159,15 @@ textarea.note{
 }
 
 .red {
-    background: red;
+    background: #FF0000;
 }
 
 .green {
-    background: green;
+    background: #00FF00;
 }
 
 .blue {
-    background: blue;
+    background: #0000FF;
 }
 
 .select.date {
