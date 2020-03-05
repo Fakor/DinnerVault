@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 
 import datetime
 
-from .models import Meal, order_meal_by_date, create_label_db
+from .models import *
 from .forms import *
 
 
@@ -22,7 +22,7 @@ def overview(request):
             meal.add_date_today()
         else:
             return HttpResponse("Cant interpret post message!")
-    context = {'meals': order_meal_by_date()}
+    context = {'meals': order_meal_by_date(), 'labels': Label.objects.all()}
     return render(request, 'main/overview.html', context)
 
 

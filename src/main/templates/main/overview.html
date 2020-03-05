@@ -12,8 +12,13 @@
         create_header("{% static '/main/images/logo.png' %}", "Overview");
     </script>
 <ol>
+    <h2>Labels</h2><br>
+    {% for label in labels %}
+        <label class="dinner_label" style="background-color: {{ label.get_color_string }};">{{ label.text }}</label>
+    {% endfor%}
+    <br><br><h2>Dinners</h2><br>
     <table>
-{% for meal in meals %}
+    {% for meal in meals %}
     <tr>
         <form action="/main/overview/" method="post">
             {% csrf_token %}
