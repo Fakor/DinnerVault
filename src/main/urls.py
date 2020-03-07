@@ -12,4 +12,5 @@ urlpatterns = [
     path('create/', views.create_meal, name='create_meal'),
     path('edit_meal/<int:meal_id>/', views.edit_meal, name='edit_meal'),
     path('create_label/', views.create_label, name='create_label'),
+    path('edit_label/<int:label_id>/', views.edit_label, name='edit_label'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

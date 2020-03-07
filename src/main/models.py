@@ -26,6 +26,15 @@ class Label(models.Model):
     def get_color_string(self):
         return '#{:02X}{:02X}{:02X}'.format(self.color_red, self.color_green, self.color_blue)
 
+    def to_json(self):
+        return {
+            "text": self.text,
+            "red": self.color_red,
+            "green": self.color_green,
+            "blue": self.color_blue,
+            "id": self.id
+        }
+
 
 class Meal(models.Model):
     name = models.CharField(max_length=50)

@@ -3,7 +3,9 @@ from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 
 from django.contrib.auth.decorators import login_required
+from django.core.serializers.json import DjangoJSONEncoder
 
+import json
 import datetime
 
 from .models import *
@@ -93,17 +95,28 @@ def create_label(request):
         if 'create_label' in request.POST:
             post = request.POST
             meals=[]
-            label = create_label_db(post['NEW_TEXT'], post['NEW_RED'], post['NEW_GREEN'], post['NEW_BLUE'])
+            label = create_label_db(post['TEXT'], post['RED'], post['GREEN'], post['BLUE'])
             for value in request.POST.getlist('checked'):
                 meal = Meal.objects.get(id=int(value))
                 meal.add_label(label)
                 meals.append(meal)
-            context = {'meals': meals, 'name': post['NEW_TEXT']}
+            context = {'meals': meals, 'name': post['TEXT']}
             return render(request, 'main/label_created.html', context)
         else:
             return HttpResponse("Cant interpret post message!")
-    form = LabelForm()
-    context = {'meals': order_meal_by_date(), 'form': form}
+    context = {'meals': order_meal_by_date()}
     return render(request, 'main/create_label.html', context)
 
-    
+@login_required
+def edit_label(request, label_id):
+    label = get_object_or_404(Label, pk=label_id)
+    if request.method == 'POST':
+        post = request.POST
+        label.text = post["TEXT"]
+        label.color_red = post["RED"]
+        label.color_green = post["GREEN"]
+        label.color_blue = post["BLUE"]
+        label.save()
+    l_json = json.dumps(label.to_json(), cls=DjangoJSONEncoder)
+    context = {'meals': order_meal_by_date(), 'label_json': l_json}
+    return render(request, 'main/create_label.html', context)

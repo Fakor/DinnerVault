@@ -12,14 +12,14 @@
         create_header("{% static '/main/images/logo.png' %}", "Create label");
     </script>
     <div class="row">
-        <form action="{% url 'create_label' %}" method="post">
+        <form method="post">
             <div class=column id=layout_col>
                 {% csrf_token %}
                 <br>
                 <h2>Layout</h2>
                 <br>
                 <script>
-                    create_label_editor("NEW", "layout_col");
+                    create_label_editor("layout_col", "{{ label_json|escapejs }}");
                 </script>
            </div>
             <div class=column2>

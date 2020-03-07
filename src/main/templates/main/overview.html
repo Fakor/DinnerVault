@@ -13,9 +13,18 @@
     </script>
 <ol>
     <h2>Labels</h2><br>
+    <form action="/main/overview/" method="post">
+        {% csrf_token %}
     {% for label in labels %}
-        <label class="dinner_label" style="background-color: {{ label.get_color_string }};">{{ label.text }}</label>
+        <button class="dinner_label"
+                type="submit"
+                style="margin: 2px; background-color: {{ label.get_color_string }};"
+                formmethod="get"
+                formaction="/main/edit_label/{{ label.id }}/">
+                {{ label.text }}
+        </button>
     {% endfor%}
+    </form>
     <br><br><h2>Dinners</h2><br>
     <table>
     {% for meal in meals %}
@@ -26,8 +35,7 @@
                         formmethod="get"
                         formaction="/main/detail/{{ meal.id}}/"
                         class="dinner"
-                        name="meal_details"
-            >
+                        name="meal_details">
                 {{ meal.name }}
             </button></td>
             <td><button type="submit"

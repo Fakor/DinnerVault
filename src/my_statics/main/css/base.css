@@ -129,7 +129,7 @@ button.eaten {
     border: 4px solid black;
 }
 
-label.dinner_label {
+.dinner_label {
     display: inline-block;
     text-align: center;
     vertical-align: middle;

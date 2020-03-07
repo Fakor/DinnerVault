@@ -43,6 +43,7 @@ function add_button_by_id(text, path, el_id) {
     let button=document.createElement("button");
     button.setAttribute("class", "top style1");
     button.onclick= function() {location.href=path;};
+    button.setAttribute("formmethod", "get");
     button.setAttribute("type", "button");
     button.innerHTML = text;
     div = document.getElementById(el_id);
@@ -100,17 +101,28 @@ function id_update_label_display(element, name, display) {
 }
 
 function update_label_display(name, display) {
-    sl_r = document.getElementById(name + "_RED");
-    sl_g = document.getElementById(name + "_GREEN");
-    sl_b = document.getElementById(name + "_BLUE");
-    text = document.getElementById(name + "_TEXT");
+    sl_r = document.getElementById("RED");
+    sl_g = document.getElementById("GREEN");
+    sl_b = document.getElementById("BLUE");
+    text = document.getElementById("TEXT");
     display.innerHTML = text.value;
 
     style = "background-color: rgb(" + sl_r.value + "," + sl_g.value + "," + sl_b.value + ")"
     display.setAttribute("style", style);
 }
 
-function create_label_editor(name, parent_id) {
+function create_label_editor(parent_id, label_json) {
+    if(label_json){
+        var values = JSON.parse(label_json);
+    } else {
+        var values = {
+            "text": "",
+            "red": 100,
+            "green": 100,
+            "blue": 100,
+            "id": "NEW"
+        }
+    }
     p = document.getElementById(parent_id);
     row = document.createElement("div");
     row.setAttribute("class", "row");
@@ -125,28 +137,33 @@ function create_label_editor(name, parent_id) {
 
     text = document.createElement("input");
     text.setAttribute("type", "text");
-    text.setAttribute("name", name + "_TEXT");
-    text.setAttribute("id", name + "_TEXT");
+    text.setAttribute("name", "TEXT");
+    text.setAttribute("id", "TEXT");
+    text.setAttribute("value", values.text);
 
-    red = create_color_slider(name, "red");
-    green= create_color_slider(name, "green");
-    blue = create_color_slider(name, "blue");
+    red = create_color_slider(values.id, "red", values.red);
+    green= create_color_slider(values.id, "green", values.green);
+    blue = create_color_slider(values.id, "blue", values.blue);
 
     display = document.createElement("label");
     display.setAttribute("class", "dinner_label");
-    display.setAttribute("id", name + "_DISPLAY");
 
     submit = document.createElement("button");
     submit.setAttribute("type", "submit");
     submit.setAttribute("name", "create_label");
     submit.setAttribute("class", "style1");
-    submit.setAttribute("value", "true");
+    submit.setAttribute("value", values.id);
     submit.innerHTML = "Create label";
+    if(values.id == "NEW"){
+        submit.onclick= function() {location.href="/main/create_label/";};
+    } else {
+        submit.onclick= function() {location.href="/main/edit_label/" + values.id + "/";};
+    }
 
-    id_update_label_display(red, name, display);
-    id_update_label_display(green, name, display);
-    id_update_label_display(blue, name, display);
-    id_update_label_display(text, name, display);
+    id_update_label_display(red, values.id, display);
+    id_update_label_display(green, values.id, display);
+    id_update_label_display(blue, values.id, display);
+    id_update_label_display(text, values.id, display);
 
     c1.appendChild(text);
     element_new_row(c1);
@@ -163,16 +180,19 @@ function create_label_editor(name, parent_id) {
     row.appendChild(c1);
     row.appendChild(c2);
     p.appendChild(row);
+
+    update_label_display(values.id, display)
 }
 
-function create_color_slider(name, color){
+function create_color_slider(name, color, init_value){
     slider = document.createElement("input");
     slider.setAttribute("type", "range");
-    slider.setAttribute("id", name + "_" + color.toUpperCase());
-    slider.setAttribute("name", name + "_" + color.toUpperCase());
+    slider.setAttribute("id", color.toUpperCase());
+    slider.setAttribute("name", color.toUpperCase());
     slider.setAttribute("class", "colorslider " + color);
     slider.setAttribute("min", 0);
     slider.setAttribute("max", 255);
+    slider.setAttribute("value", init_value);
 
     return slider;
 }
