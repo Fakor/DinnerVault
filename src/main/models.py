@@ -78,6 +78,11 @@ class Meal(models.Model):
         if commit:
             self.save()
 
+    def remove_label(self, label, commit=True):
+        self.labels.remove(label)
+        if commit:
+            self.save()
+
     def have_label(self, label):
         return len(self.labels.filter(id__in=[label.id])) > 0
 

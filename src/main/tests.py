@@ -101,3 +101,28 @@ class MealTestCase(TestCase):
         l1 = create_label_db("simple", 1, 2, 4)
         with self.assertRaises(IntegrityError) as context:
             l2 = create_label_db("simple", 6, 6, 6)
+
+    def test_remove_lable(self):
+        f1 = Meal.objects.get(name="1")
+
+        l1 = create_label_db("simple", 1, 2, 4)
+        l2 = create_label_db("fancy", 2, 4, 6)
+        l3 = create_label_db("meat", 10, 16, 20)
+
+        f1.add_label(l1)
+        f1.add_label(l2)
+        f1.add_label(l3)
+
+        self.assertEqual(len(f1.labels.all()), 3)
+        self.assertTrue(f1.have_label(l1))
+        self.assertTrue(f1.have_label(l2))
+        self.assertTrue(f1.have_label(l3))
+
+        f1.remove_label(l2)
+        f1.remove_label(l1)
+        self.assertEqual(len(f1.labels.all()), 1)
+        self.assertFalse(f1.have_label(l1))
+        self.assertFalse(f1.have_label(l2))
+        self.assertTrue(f1.have_label(l3))
+
+ 

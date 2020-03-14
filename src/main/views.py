@@ -96,7 +96,7 @@ def create_label(request):
             post = request.POST
             meals=[]
             label = create_label_db(post['TEXT'], post['RED'], post['GREEN'], post['BLUE'])
-            for value in request.POST.getlist('checked'):
+            for value in request.POST.getlist('checked_meals'):
                 meal = Meal.objects.get(id=int(value))
                 meal.add_label(label)
                 meals.append(meal)
@@ -116,7 +116,17 @@ def edit_label(request, label_id):
         label.color_red = post["RED"]
         label.color_green = post["GREEN"]
         label.color_blue = post["BLUE"]
+        current_dinners = sort_meal_by_labels(required=[label])
+        checked_dinners = set([int(el) for el in post.getlist("checked_meals")])
+        for curr_din in current_dinners:
+            if curr_din.id in checked_dinners:
+                checked_dinners.remove(curr_din.id)
+            else:
+                curr_din.remove_label(label)
+        for ch_din in checked_dinners:
+            meal = get_object_or_404(Meal, pk=ch_din)
+            meal.add_label(label)
         label.save()
     l_json = json.dumps(label.to_json(), cls=DjangoJSONEncoder)
-    context = {'meals': order_meal_by_date(), 'label_json': l_json}
+    context = {'meals': order_meal_by_date(), 'label_json': l_json, "selected_meals": sort_meal_by_labels(required=[label])}
     return render(request, 'main/create_label.html', context)

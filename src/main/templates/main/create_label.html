@@ -4,6 +4,11 @@
     {% load static %}
     <link rel='stylesheet' href="{% static '/main/css/base.css' %}">
     <script src="{% static '/main/js/base.js' %}"></script>
+    <script>
+        function check_label(meal_id){
+            document.getElementById("meal" + meal_id).checked = true;
+        }
+    </script>
     <meta charset="UTF-8">
     <title>Create label</title>
 </head>
@@ -27,9 +32,14 @@
                 <h2>Dinners</h2>
                 <br>
                 {% for meal in meals %}
-                    <input type="checkbox" name="checked" value={{ meal.id }}>
+                    <input type="checkbox" name="checked_meals" value={{ meal.id }} id="meal{{meal.id}}">
                     <label class="dinner"> {{ meal.name }} </label>
                     <br>
+                {% endfor %}
+                {% for meal in selected_meals %}
+                    <script>
+                        check_label("{{ meal.id }}");
+                    </script>
                 {% endfor %}
             </div>
         </form>
