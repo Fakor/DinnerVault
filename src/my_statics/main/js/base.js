@@ -91,7 +91,8 @@ function add_option(selector, text, value){
 }
 
 function date_string(date){
-    return date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
+    let month = date.getMonth() + 1;
+    return date.getFullYear() + "-" + month + "-" + date.getDate();
 }
 
 function id_update_label_display(element, name, display) {
