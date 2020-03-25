@@ -50,22 +50,22 @@ def index(request):
 #    return render(request, 'main/detail.html', context)
 
 
-@login_required
-def create_meal(request):
-    if request.method == 'POST':
-        form = EditMealForm(request.POST)
-        form_labels=LabelPickerForm(request.POST)
-        if form.is_valid() and form_labels.is_valid():
-            meal=form.save()
-            form_labels.update_meal_with_labels(meal)
-            return redirect('detail', meal_id=(form.instance.id))
-        else:
-            return HttpResponse("Failed creating meal!")
-    else:
-        form = EditMealForm()
-        form_labels = LabelPickerForm()
-        context = {'form': form, 'new': True, 'form_labels': form_labels}
-        return render(request, 'main/edit_meal.html', context)
+#@login_required
+#def create_meal(request):
+#    if request.method == 'POST':
+#        form = EditMealForm(request.POST)
+#        form_labels=LabelPickerForm(request.POST)
+#        if form.is_valid() and form_labels.is_valid():
+#            meal=form.save()
+#            form_labels.update_meal_with_labels(meal)
+#            return redirect('detail', meal_id=(form.instance.id))
+#        else:
+#            return HttpResponse("Failed creating meal!")
+#    else:
+#        form = EditMealForm()
+#        form_labels = LabelPickerForm()
+#        context = {'form': form, 'new': True, 'form_labels': form_labels}
+#        return render(request, 'main/edit_meal.html', context)
 
 @login_required
 def edit_meal(request, meal_id):
