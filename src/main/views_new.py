@@ -16,16 +16,16 @@ def index(request):
     return HttpResponse("Glufs!")
 
 
-@login_required
-def overview(request):
-    if request.method == 'POST':
-        if 'eaten_today' in request.POST:
-            meal = Meal.objects.get(id=request.POST['eaten_today'])
-            meal.add_date_today()
-        else:
-            return HttpResponse("Cant interpret post message!")
-    context = {'meals': order_meal_by_date(), 'labels': Label.objects.all()}
-    return render(request, 'main/overview.html', context)
+#@login_required
+#def overview(request):
+#    if request.method == 'POST':
+#        if 'eaten_today' in request.POST:
+#            meal = Meal.objects.get(id=request.POST['eaten_today'])
+#            meal.add_date_today()
+#        else:
+#            return HttpResponse("Cant interpret post message!")
+#    context = {'meals': order_meal_by_date(), 'labels': Label.objects.all()}
+#    return render(request, 'main/overview.html', context)
 
 
 # TODO Split this us so that adding a note and adding a date have different views and forms
