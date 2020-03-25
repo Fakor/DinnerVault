@@ -29,25 +29,25 @@ def index(request):
 
 
 # TODO Split this us so that adding a note and adding a date have different views and forms
-@login_required
-def detail(request, meal_id):
-    meal = get_object_or_404(Meal, pk=meal_id)
-    form_values = {'date': datetime.date.today()}
-    context = {'meal': meal}
-    if request.method == 'POST':
-        if 'submit_note' in request.POST:
-            message = "New note"
-            meal.add_note(request.POST.get('submit_note'))
-        elif 'submit_date' in request.POST:
-            date = request.POST.get('date_pick')
-            year, month, day = [int(el) for el in date.split('-')]
-            form_values['date'] = datetime.date(year, month, day)
-            if meal.add_date(year, month, day):
-                message = "Added date {}-{}-{}!".format(year, month, day)
-            else:
-                message = "Date {}-{}-{} is already added!".format(year, month, day)
-        context['message'] = message
-    return render(request, 'main/detail.html', context)
+#@login_required
+#def detail(request, meal_id):
+#    meal = get_object_or_404(Meal, pk=meal_id)
+#    form_values = {'date': datetime.date.today()}
+#    context = {'meal': meal}
+#    if request.method == 'POST':
+#        if 'submit_note' in request.POST:
+#            message = "New note"
+#            meal.add_note(request.POST.get('submit_note'))
+#        elif 'submit_date' in request.POST:
+#            date = request.POST.get('date_pick')
+#            year, month, day = [int(el) for el in date.split('-')]
+#            form_values['date'] = datetime.date(year, month, day)
+#            if meal.add_date(year, month, day):
+#                message = "Added date {}-{}-{}!".format(year, month, day)
+#            else:
+#                message = "Date {}-{}-{} is already added!".format(year, month, day)
+#        context['message'] = message
+#    return render(request, 'main/detail.html', context)
 
 
 @login_required
