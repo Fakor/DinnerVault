@@ -67,27 +67,27 @@ def index(request):
 #        context = {'form': form, 'new': True, 'form_labels': form_labels}
 #        return render(request, 'main/edit_meal.html', context)
 
-@login_required
-def edit_meal(request, meal_id):
-    meal = get_object_or_404(Meal, pk=meal_id)
-    if request.method == 'POST':
-        form=EditMealForm(request.POST)
-        form_labels=LabelPickerForm(request.POST)
-        if 'delete_dates' in request.POST:
-            for date_id in request.POST.getlist('dates'):
-                try:
-                    d = meal.dates.filter(id=int(date_id))
-                    d.delete()
-                except:
-                    pass
-        elif form.is_valid() and form_labels.is_valid():
-            form.update_meal(meal)
-            form_labels.update_meal_with_labels(meal)
-            return redirect('detail', meal_id=(meal.id))
-    form = EditMealForm(instance=meal)
-    form_labels = LabelPickerForm(labels=meal.labels)
-    context = {'form': form, 'new': False, 'meal': meal, 'form_labels': form_labels, 'dates': meal.dates.all() }
-    return render(request, 'main/edit_meal.html', context)
+# @login_required
+# def edit_meal(request, meal_id):
+#     meal = get_object_or_404(Meal, pk=meal_id)
+#     if request.method == 'POST':
+#         form=EditMealForm(request.POST)
+#         form_labels=LabelPickerForm(request.POST)
+#         if 'delete_dates' in request.POST:
+#             for date_id in request.POST.getlist('dates'):
+#                 try:
+#                     d = meal.dates.filter(id=int(date_id))
+#                     d.delete()
+#                 except:
+#                     pass
+#         elif form.is_valid() and form_labels.is_valid():
+#             form.update_meal(meal)
+#             form_labels.update_meal_with_labels(meal)
+#             return redirect('detail', meal_id=(meal.id))
+#     form = EditMealForm(instance=meal)
+#     form_labels = LabelPickerForm(labels=meal.labels)
+#     context = {'form': form, 'new': False, 'meal': meal, 'form_labels': form_labels, 'dates': meal.dates.all() }
+#     return render(request, 'main/edit_meal.html', context)
 
 @login_required
 def create_label(request):
