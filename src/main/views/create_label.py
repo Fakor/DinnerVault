@@ -1,6 +1,5 @@
 from django.http import HttpResponse
 from django.views import View
-from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 
 from main.models import Meal, create_label_db, order_meal_by_date
