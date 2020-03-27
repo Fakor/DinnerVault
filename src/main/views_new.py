@@ -89,23 +89,23 @@ def index(request):
 #     context = {'form': form, 'new': False, 'meal': meal, 'form_labels': form_labels, 'dates': meal.dates.all() }
 #     return render(request, 'main/edit_meal.html', context)
 
-@login_required
-def create_label(request):
-    if request.method == 'POST':
-        if 'create_label' in request.POST:
-            post = request.POST
-            meals=[]
-            label = create_label_db(post['TEXT'], post['RED'], post['GREEN'], post['BLUE'])
-            for value in request.POST.getlist('checked_meals'):
-                meal = Meal.objects.get(id=int(value))
-                meal.add_label(label)
-                meals.append(meal)
-            context = {'meals': meals, 'name': post['TEXT']}
-            return render(request, 'main/label_created.html', context)
-        else:
-            return HttpResponse("Cant interpret post message!")
-    context = {'meals': order_meal_by_date()}
-    return render(request, 'main/create_label.html', context)
+# @login_required
+# def create_label(request):
+#     if request.method == 'POST':
+#         if 'create_label' in request.POST:
+#             post = request.POST
+#             meals=[]
+#             label = create_label_db(post['TEXT'], post['RED'], post['GREEN'], post['BLUE'])
+#             for value in request.POST.getlist('checked_meals'):
+#                 meal = Meal.objects.get(id=int(value))
+#                 meal.add_label(label)
+#                 meals.append(meal)
+#             context = {'meals': meals, 'name': post['TEXT']}
+#             return render(request, 'main/label_created.html', context)
+#         else:
+#             return HttpResponse("Cant interpret post message!")
+#     context = {'meals': order_meal_by_date()}
+#     return render(request, 'main/create_label.html', context)
 
 @login_required
 def edit_label(request, label_id):
