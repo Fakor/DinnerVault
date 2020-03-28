@@ -3,8 +3,8 @@ from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 
 from main.models.dinner import Dinner
-from main.forms import EditMealForm, LabelPickerForm
-
+from main.forms.edit_meal import EditMealForm
+from main.forms.label_picker import LabelPickerForm
 
 class ViewEditMeal(View):
     template_name='main/edit_meal.html'

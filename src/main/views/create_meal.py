@@ -2,7 +2,8 @@ from django.views import View
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
-from main.forms import EditMealForm, LabelPickerForm
+from main.forms.edit_meal import EditMealForm
+from main.forms.label_picker import LabelPickerForm
 
 
 class ViewCreateMeal(View):
