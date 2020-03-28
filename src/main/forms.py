@@ -4,14 +4,6 @@ from main.models.dinner import Dinner
 from main.models.label import Label
 
 
-class ColorField(forms.IntegerField):
-
-    def validate(self, value):
-        super().validate(value)
-        if value < 0 or value > 255:
-            forms.ValidationError( ('Invalid value'), code='invalid')
-
-
 class EditMealForm(forms.ModelForm):
     class Meta:
         model = Dinner
@@ -46,10 +38,4 @@ class LabelPickerForm(forms.Form):
                 except:
                     pass
 
-
-class LabelForm(forms.Form):
-    text = forms.CharField(max_length=Label._meta.get_field('text').max_length)
-    red = ColorField()
-    green= ColorField()
-    blue = ColorField()
 
