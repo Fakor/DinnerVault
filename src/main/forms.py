@@ -1,6 +1,7 @@
 from django import forms
 
-from .models import Label, Meal
+from main.models.dinner import Dinner
+from main.models.label import Label
 
 
 class ColorField(forms.IntegerField):
@@ -13,7 +14,7 @@ class ColorField(forms.IntegerField):
 
 class EditMealForm(forms.ModelForm):
     class Meta:
-        model = Meal
+        model = Dinner
         fields = ['name']
 
     def update_meal(self, meal):
@@ -44,6 +45,7 @@ class LabelPickerForm(forms.Form):
                     meal.add_label(Label.objects.filter(text=key)[0])
                 except:
                     pass
+
 
 class LabelForm(forms.Form):
     text = forms.CharField(max_length=Label._meta.get_field('text').max_length)

@@ -5,7 +5,8 @@ from django.views import View
 import json
 from django.core.serializers.json import DjangoJSONEncoder
 
-from main.models import Meal, Label, order_meal_by_date, sort_meal_by_labels
+from main.models.label import Label
+from main.models.dinner import Dinner, order_dinner_by_date, sort_dinners_by_labels
 
 
 class ViewEditLabel(View):
@@ -14,18 +15,18 @@ class ViewEditLabel(View):
     def get(self, request, label_id):
         label = get_object_or_404(Label, pk=label_id)
         l_json = json.dumps(label.to_json(), cls=DjangoJSONEncoder)
-        context = {'meals': order_meal_by_date(), 'label_json': l_json, "selected_meals": sort_meal_by_labels(required=[label])}
+        context = {'meals': order_dinner_by_date(), 'label_json': l_json, "selected_meals": sort_dinners_by_labels(required=[label])}
         return render(request, self.template_name, context)
 
     def post(self, request, label_id):
         label = get_object_or_404(Label, pk=label_id)
         if request.method == 'POST':
             post = request.POST
+            label.color_red=post["RED"]
+            label.color_green=post['GREEN']
+            label.color_blue=post['BLUE']
             label.text = post["TEXT"]
-            label.color_red = post["RED"]
-            label.color_green = post["GREEN"]
-            label.color_blue = post["BLUE"]
-            current_dinners = sort_meal_by_labels(required=[label])
+            current_dinners = sort_dinners_by_labels(required=[label])
             checked_dinners = set([int(el) for el in post.getlist("checked_meals")])
             for curr_din in current_dinners:
                 if curr_din.id in checked_dinners:
@@ -33,10 +34,10 @@ class ViewEditLabel(View):
                 else:
                     curr_din.remove_label(label)
             for ch_din in checked_dinners:
-                meal = get_object_or_404(Meal, pk=ch_din)
+                meal = get_object_or_404(Dinner, pk=ch_din)
                 meal.add_label(label)
             label.save()
         l_json = json.dumps(label.to_json(), cls=DjangoJSONEncoder)
-        context = {'meals': order_meal_by_date(), 'label_json': l_json,
-                   "selected_meals": sort_meal_by_labels(required=[label])}
+        context = {'meals': order_dinner_by_date(), 'label_json': l_json,
+                   "selected_meals": sort_dinners_by_labels(required=[label])}
         return render(request, self.template_name, context)

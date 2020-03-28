@@ -2,7 +2,8 @@ from django.http import HttpResponse
 from django.views import View
 from django.shortcuts import render
 
-from main.models import Meal, create_label_db, order_meal_by_date
+from main.models.dinner import Dinner, order_dinner_by_date
+from main.models.label import create_label_db
 
 
 class ViewCreateLabel(View):
@@ -10,7 +11,7 @@ class ViewCreateLabel(View):
     label_created_template = 'main/label_created.html'
 
     def get(self, request):
-        context = {'meals': order_meal_by_date()}
+        context = {'meals': order_dinner_by_date()}
         return render(request, self.template_name, context)
 
     def post(self, request):
@@ -19,7 +20,7 @@ class ViewCreateLabel(View):
             meals=[]
             label = create_label_db(post['TEXT'], post['RED'], post['GREEN'], post['BLUE'])
             for value in request.POST.getlist('checked_meals'):
-                meal = Meal.objects.get(id=int(value))
+                meal = Dinner.objects.get(id=int(value))
                 meal.add_label(label)
                 meals.append(meal)
             context = {'meals': meals, 'name': post['TEXT']}

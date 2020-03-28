@@ -2,7 +2,7 @@ from django.views import View
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 
-from main.models import Meal
+from main.models.dinner import Dinner
 
 
 class ViewDetail(View):
@@ -12,12 +12,12 @@ class ViewDetail(View):
     submit_date = 'submit_date'
 
     def get(self, request, meal_id):
-        meal = get_object_or_404(Meal, pk=meal_id)
+        meal = get_object_or_404(Dinner, pk=meal_id)
         context = {'meal': meal}
         return render(request, self.template_name, context)
 
     def post(self, request, meal_id):
-        meal = get_object_or_404(Meal, pk=meal_id)
+        meal = get_object_or_404(Dinner, pk=meal_id)
         if self.submit_note in request.POST:
             message = "New note"
             meal.add_note(request.POST.get(self.submit_note))

@@ -3,18 +3,18 @@ from django.db import IntegrityError
 
 from datetime import date
 
-from main.models import Meal, order_meal_by_date, create_label_db, sort_meal_by_labels
-
+from main.models.dinner import Dinner, order_dinner_by_date, sort_dinners_by_labels
+from main.models.label import create_label_db
 
 class MealTestCase(TestCase):
     def setUp(self):
-        Meal.objects.create(name="1")
-        Meal.objects.create(name="2")
-        Meal.objects.create(name="3")
-        Meal.objects.create(name="4")
+        Dinner.objects.create(name="1")
+        Dinner.objects.create(name="2")
+        Dinner.objects.create(name="3")
+        Dinner.objects.create(name="4")
 
     def test_latest_date(self):
-        food = Meal.objects.get(name="1")
+        food = Dinner.objects.get(name="1")
 
         food.add_date(2019, 10, 1)
         food.add_date(2019, 11, 1)
@@ -25,15 +25,15 @@ class MealTestCase(TestCase):
         self.assertEqual(actual, expected)
 
     def test_order_meals(self):
-        f1 = Meal.objects.get(name="1")
-        f2 = Meal.objects.get(name="2")
-        f3 = Meal.objects.get(name="3")
+        f1 = Dinner.objects.get(name="1")
+        f2 = Dinner.objects.get(name="2")
+        f3 = Dinner.objects.get(name="3")
 
         f1.add_date(2019, 12, 1)
         f2.add_date(2019, 10, 1)
         f3.add_date(2019, 11, 1)
 
-        meals=order_meal_by_date()
+        meals=order_dinner_by_date()
 
         self.assertEqual(meals[0].name, "4")
         self.assertEqual(meals[1].name, "2")
@@ -41,7 +41,7 @@ class MealTestCase(TestCase):
         self.assertEqual(meals[3].name, "1")
 
     def test_times_eaten(self):
-        f1 = Meal.objects.get(name="1")
+        f1 = Dinner.objects.get(name="1")
 
         self.assertTrue(f1.add_date(2019, 12, 1))
         self.assertEqual(f1.times_eaten(), 1)
@@ -55,10 +55,10 @@ class MealTestCase(TestCase):
         self.assertEqual(f1.times_eaten(), 3)
 
     def test_sort_by_labels(self):
-        f1 = Meal.objects.get(name="1")
-        f2 = Meal.objects.get(name="2")
-        f3 = Meal.objects.get(name="3")
-        f4 = Meal.objects.get(name="4")
+        f1 = Dinner.objects.get(name="1")
+        f2 = Dinner.objects.get(name="2")
+        f3 = Dinner.objects.get(name="3")
+        f4 = Dinner.objects.get(name="4")
 
         l1 = create_label_db("simple", 1, 2, 4)
         l2 = create_label_db("fancy", 2, 4, 6)
@@ -79,12 +79,12 @@ class MealTestCase(TestCase):
         f4.add_label(l3)
         f4.add_label(l4)
 
-        sorted_1 = sort_meal_by_labels(required=[l1, l2])
+        sorted_1 = sort_dinners_by_labels(required=[l1, l2])
         self.assertEqual(2, len(sorted_1))
         self.assertTrue(sorted_1.filter(name='1').exists())
         self.assertTrue(sorted_1.filter(name='3').exists())
 
-        sorted_2 = sort_meal_by_labels(required=[l3], excluded=[l4])
+        sorted_2 = sort_dinners_by_labels(required=[l3], excluded=[l4])
         self.assertEqual(1, len(sorted_2))
         self.assertTrue(sorted_2.filter(name='1').exists())
 
@@ -103,7 +103,7 @@ class MealTestCase(TestCase):
             l2 = create_label_db("simple", 6, 6, 6)
 
     def test_remove_lable(self):
-        f1 = Meal.objects.get(name="1")
+        f1 = Dinner.objects.get(name="1")
 
         l1 = create_label_db("simple", 1, 2, 4)
         l2 = create_label_db("fancy", 2, 4, 6)

@@ -2,7 +2,7 @@ from django.views import View
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 
-from main.models import Meal
+from main.models.dinner import Dinner
 from main.forms import EditMealForm, LabelPickerForm
 
 
@@ -14,7 +14,7 @@ class ViewEditMeal(View):
         return render(request, self.template_name, self.get_context(meal_id))
 
     def post(self, request, meal_id):
-        meal = get_object_or_404(Meal, pk=meal_id)
+        meal = get_object_or_404(Dinner, pk=meal_id)
         form = EditMealForm(request.POST)
         form_labels = LabelPickerForm(request.POST)
         if 'delete_dates' in request.POST:
@@ -28,7 +28,7 @@ class ViewEditMeal(View):
         return render(request, self.template_name, self.get_context(meal_id))
 
     def get_context(self, meal_id):
-        meal = get_object_or_404(Meal, pk=meal_id)
+        meal = get_object_or_404(Dinner, pk=meal_id)
         form = EditMealForm(instance=meal)
         form_labels = LabelPickerForm(labels=meal.labels)
 
