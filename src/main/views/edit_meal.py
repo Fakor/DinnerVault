@@ -6,6 +6,7 @@ from main.models.dinner import Dinner
 from main.forms.edit_meal import EditMealForm
 from main.forms.label_picker import LabelPickerForm
 
+
 class ViewEditMeal(View):
     template_name='main/edit_meal.html'
     detail_name = 'detail'
@@ -24,7 +25,7 @@ class ViewEditMeal(View):
         elif form.is_valid() and form_labels.is_valid():
             form.update_meal(meal)
             form_labels.update_meal_with_labels(meal)
-            return redirect(self.detail_name, meal_id=(meal.id))
+            return redirect(self.detail_name, meal_id=meal.id)
         return render(request, self.template_name, self.get_context(meal_id))
 
     def get_context(self, meal_id):
