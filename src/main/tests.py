@@ -1,10 +1,13 @@
 from django.test import TestCase
 from django.db import IntegrityError
 
-from datetime import date
+import datetime
 
 from main.models.dinner import Dinner, order_dinner_by_date, sort_dinners_by_labels
 from main.models.label import create_label_db
+from main.models.plan import Plan, get_plans_for_date
+from main.models.date import Date
+
 
 class MealTestCase(TestCase):
     def setUp(self):
@@ -20,7 +23,7 @@ class MealTestCase(TestCase):
         food.add_date(2019, 11, 1)
         food.add_date(2019, 10, 3)
 
-        expected = date(2019, 11, 1)
+        expected = datetime.date(2019, 11, 1)
         actual = food.latest_date
         self.assertEqual(actual, expected)
 
@@ -98,11 +101,11 @@ class MealTestCase(TestCase):
         self.assertEqual(len(f1.labels.all()), 3)
 
     def test_label_unique(self):
-        l1 = create_label_db("simple", 1, 2, 4)
+        create_label_db("simple", 1, 2, 4)
         with self.assertRaises(IntegrityError) as context:
-            l2 = create_label_db("simple", 6, 6, 6)
+            create_label_db("simple", 6, 6, 6)
 
-    def test_remove_lable(self):
+    def test_remove_label(self):
         f1 = Dinner.objects.get(name="1")
 
         l1 = create_label_db("simple", 1, 2, 4)
@@ -125,4 +128,33 @@ class MealTestCase(TestCase):
         self.assertFalse(f1.have_label(l2))
         self.assertTrue(f1.have_label(l3))
 
- 
+    def test_get_plans(self):
+        d1 = Date.objects.create(date=datetime.date(2020, 3, 1))
+        d2 = Date.objects.create(date=datetime.date(2020, 2, 1))
+        d3 = Date.objects.create(date=datetime.date(2020, 4, 3))
+        d4 = Date.objects.create(date=datetime.date(2020, 4, 16))
+        d5 = Date.objects.create(date=datetime.date(2020, 2, 1))
+        Plan.objects.create(date=d1, text='d1')
+        Plan.objects.create(date=d2, text='d2')
+        Plan.objects.create(date=d3, text='d3')
+        Plan.objects.create(date=d4, text='d4')
+        Plan.objects.create(date=d5, text='d5')
+
+        p1 = get_plans_for_date(2020, 3, 1)
+        self.assertEqual(len(p1), 1)
+        self.assertEqual(p1[0].text, 'd1')
+
+        p2 = get_plans_for_date(2020, 2, 1)
+        self.assertEqual(len(p2), 2)
+        self.assertEqual(p2[0].text, 'd2')
+        self.assertEqual(p2[1].text, 'd5')
+
+        p3 = get_plans_for_date(2020, 4, 3)
+        self.assertEqual(len(p3), 1)
+        self.assertEqual(p3[0].text, 'd3')
+
+        p4 = get_plans_for_date(2020, 4, 16)
+        self.assertEqual(len(p4), 1)
+        self.assertEqual(p4[0].text, 'd4')
+
+
