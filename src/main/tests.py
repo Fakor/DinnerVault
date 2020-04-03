@@ -129,11 +129,11 @@ class MealTestCase(TestCase):
         self.assertTrue(f1.have_label(l3))
 
     def test_get_plans(self):
-        d1 = Date.objects.create(date=datetime.date(2020, 3, 1))
-        d2 = Date.objects.create(date=datetime.date(2020, 2, 1))
-        d3 = Date.objects.create(date=datetime.date(2020, 4, 3))
-        d4 = Date.objects.create(date=datetime.date(2020, 4, 16))
-        d5 = Date.objects.create(date=datetime.date(2020, 2, 1))
+        d1 = datetime.date(2020, 3, 1)
+        d2 = datetime.date(2020, 2, 1)
+        d3 = datetime.date(2020, 4, 17)
+        d4 = datetime.date(2020, 4, 16)
+        d5 = datetime.date(2020, 2, 1)
         Plan.objects.create(date=d1, text='d1')
         Plan.objects.create(date=d2, text='d2')
         Plan.objects.create(date=d3, text='d3')
@@ -149,7 +149,7 @@ class MealTestCase(TestCase):
         self.assertEqual(p2[0].text, 'd2')
         self.assertEqual(p2[1].text, 'd5')
 
-        p3 = get_plans_for_date(2020, 4, 3)
+        p3 = get_plans_for_date(2020, 4, 17)
         self.assertEqual(len(p3), 1)
         self.assertEqual(p3[0].text, 'd3')
 
@@ -159,6 +159,6 @@ class MealTestCase(TestCase):
 
         p5 = get_plans_after_date(2020, 3, 1)
         self.assertEqual(len(p5), 3)
-        texts = {d.text for d in p5}
-        self.assertSetEqual(texts, {'d1', 'd3', 'd4'})
+        texts = [d.text for d in p5]
+        self.assertListEqual(texts, ['d1', 'd4', 'd3'])
 
