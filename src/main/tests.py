@@ -5,7 +5,7 @@ import datetime
 
 from main.models.dinner import Dinner, order_dinner_by_date, sort_dinners_by_labels
 from main.models.label import create_label_db
-from main.models.plan import Plan, get_plans_for_date
+from main.models.plan import Plan, get_plans_for_date, get_plans_after_date
 from main.models.date import Date
 
 
@@ -157,4 +157,8 @@ class MealTestCase(TestCase):
         self.assertEqual(len(p4), 1)
         self.assertEqual(p4[0].text, 'd4')
 
+        p5 = get_plans_after_date(2020, 3, 1)
+        self.assertEqual(len(p5), 3)
+        texts = {d.text for d in p5}
+        self.assertSetEqual(texts, {'d1', 'd3', 'd4'})
 

@@ -21,3 +21,10 @@ def get_plans_for_date(year, month, day):
     return found_plans
 
 
+def get_plans_after_date(year, month, day):
+    date = datetime.date(year, month, day)
+    found_plans=[]
+    for plan in Plan.objects.all():
+        if plan.date.date >= date:
+            found_plans.append(plan)
+    return found_plans
