@@ -23,6 +23,7 @@ function create_header(path, title) {
     add_header_button("Overview", "/main/overview");
     add_header_button("Create dinner", "/main/create");
     add_header_button("Create label", "/main/create_label");
+    add_header_button("Make plans", "/main/make_plans");
 
     let set_title=document.createElement("h2");
     set_title.innerHTML=title;

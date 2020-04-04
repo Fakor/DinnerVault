@@ -6,7 +6,6 @@ import datetime
 from main.models.dinner import Dinner, order_dinner_by_date, sort_dinners_by_labels
 from main.models.label import create_label_db
 from main.models.plan import Plan, get_plans_for_date, get_plans_after_date
-from main.models.date import Date
 
 
 class MealTestCase(TestCase):

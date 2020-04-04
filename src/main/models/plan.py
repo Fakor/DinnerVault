@@ -27,3 +27,8 @@ def get_plans_after_date(year, month, day):
         if plan.date >= date:
             found_plans.append(plan)
     return found_plans
+
+
+def get_plans_after_today():
+    today = datetime.datetime.today()
+    return get_plans_after_date(today.year, today.month, today.day)
