@@ -121,6 +121,13 @@ label.dinner {
     margin-left: 5px;
 }
 
+label.plan {
+    font-size: 20px;
+    font-family: FreeMono;
+    font-weight: bold;
+    padding: 10px 32px;
+    width: 300px;
+}
 
 button.eaten {
     background-color: var(--c3);

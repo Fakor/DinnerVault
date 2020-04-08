@@ -4,6 +4,7 @@
     {% load static %}
     <link rel='stylesheet' href="{% static '/main/css/base.css' %}">
     <script src="{% static '/main/js/base.js' %}"></script>
+    <script src="{% static '/main/js/plans.js' %}"></script>
     <meta charset="UTF-8">
     <title>Make plans</title>
 </head>
@@ -11,5 +12,10 @@
     <script>
         create_header("{% static '/main/images/logo.png' %}", "Make plans");
     </script>
+    <div id="plan_display_id">
+        <script>
+            display_plans("plan_display_id", "{{ plans }}", "{{ dinners }}");
+        </script>
+    </div>
 </body>
 </html>
