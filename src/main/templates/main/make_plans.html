@@ -14,8 +14,11 @@
     </script>
     <div id="plan_display_id">
         <script>
-            display_plans("plan_display_id", "{{ plans }}", "{{ dinners }}");
+            display_plans("plan_display_id", "{{ plans|escapejs }}", "{{ dinners|escapejs }}");
         </script>
     </div>
+    <button onclick='create_empty_plan("plan_display_id", "{{ dinners|escapejs }}")'>
+        New plan
+    </button>
 </body>
 </html>

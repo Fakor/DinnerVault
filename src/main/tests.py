@@ -5,7 +5,6 @@ import datetime
 
 from main.models.dinner import Dinner, order_dinner_by_date, sort_dinners_by_labels
 from main.models.label import create_label_db
-from main.models.plan import Plan, get_plans_for_date, get_plans_after_date
 
 
 class MealTestCase(TestCase):
@@ -126,38 +125,3 @@ class MealTestCase(TestCase):
         self.assertFalse(f1.have_label(l1))
         self.assertFalse(f1.have_label(l2))
         self.assertTrue(f1.have_label(l3))
-
-    def test_get_plans(self):
-        d1 = datetime.date(2020, 3, 1)
-        d2 = datetime.date(2020, 2, 1)
-        d3 = datetime.date(2020, 4, 17)
-        d4 = datetime.date(2020, 4, 16)
-        d5 = datetime.date(2020, 2, 1)
-        Plan.objects.create(date=d1, text='d1')
-        Plan.objects.create(date=d2, text='d2')
-        Plan.objects.create(date=d3, text='d3')
-        Plan.objects.create(date=d4, text='d4')
-        Plan.objects.create(date=d5, text='d5')
-
-        p1 = get_plans_for_date(2020, 3, 1)
-        self.assertEqual(len(p1), 1)
-        self.assertEqual(p1[0].text, 'd1')
-
-        p2 = get_plans_for_date(2020, 2, 1)
-        self.assertEqual(len(p2), 2)
-        self.assertEqual(p2[0].text, 'd2')
-        self.assertEqual(p2[1].text, 'd5')
-
-        p3 = get_plans_for_date(2020, 4, 17)
-        self.assertEqual(len(p3), 1)
-        self.assertEqual(p3[0].text, 'd3')
-
-        p4 = get_plans_for_date(2020, 4, 16)
-        self.assertEqual(len(p4), 1)
-        self.assertEqual(p4[0].text, 'd4')
-
-        p5 = get_plans_after_date(2020, 3, 1)
-        self.assertEqual(len(p5), 3)
-        texts = [d.text for d in p5]
-        self.assertListEqual(texts, ['d1', 'd4', 'd3'])
-
