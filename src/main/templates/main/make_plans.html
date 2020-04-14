@@ -12,13 +12,24 @@
     <script>
         create_header("{% static '/main/images/logo.png' %}", "Make plans");
     </script>
-    <div id="plan_display_id">
-        <script>
-            display_plans("plan_display_id", "{{ plans|escapejs }}", "{{ dinners|escapejs }}");
-        </script>
-    </div>
-    <button onclick='create_empty_plan("plan_display_id", "{{ dinners|escapejs }}")'>
-        New plan
-    </button>
+    <form action="{% url 'make_plans' %}" method="post">
+        {% csrf_token %}
+        <div id="plan_display_id">
+            <script>
+                display_plans("plan_display_id", "{{ plans|escapejs }}", "{{ dinners|escapejs }}");
+            </script>
+        </div>
+        <button type="submit"
+                class="style1"
+                formaction="/main/make_plans/">
+            Save
+        </button>
+        <button type="button"
+                class="style1"
+                onclick='create_empty_plan("plan_display_id", "{{ dinners|escapejs }}")'>
+            New plan
+        </button>
+    </form>
+
 </body>
 </html>

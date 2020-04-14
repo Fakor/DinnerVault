@@ -18,10 +18,14 @@ function create_empty_plan(parent_id, dinners_json){
     name_input = document.createElement("input");
     name_input.setAttribute("type", "text");
     name_input.setAttribute("id", "new_plan_name");
+    name_input.setAttribute("name", "NEW_NAME");
+    name_input.setAttribute("value", "");
 
     // Selector for dinner
     let dinner_pick = document.createElement("select");
     dinner_pick.setAttribute("id", "new_plan_dinner");
+    dinner_pick.setAttribute("name", "NEW_DINNER");
+    dinner_pick.setAttribute("value", "");
     no_pick = add_option(dinner_pick, "", "")
     var i;
     for(i=0; i < dinners.length; ++i){
@@ -35,6 +39,7 @@ function create_empty_plan(parent_id, dinners_json){
     text_input.setAttribute("cols", 100);
     text_input.setAttribute("rows", 2);
     text_input.setAttribute("maxlength", 200);
+    text_input.setAttribute("name", "NEW_TEXT");
 
     // Add all elements to parent
     parent.appendChild(name_input);
