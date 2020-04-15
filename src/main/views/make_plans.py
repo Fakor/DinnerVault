@@ -37,5 +37,4 @@ class ViewMakePlans(View):
         p_json = serializers.serialize('json', plans)
         dinners = order_dinner_by_date()
         d_json = serializers.serialize('json', dinners, fields=('name'))
-
         return {'plans': p_json, 'dinners': d_json}

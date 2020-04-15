@@ -89,6 +89,12 @@ function add_option(selector, text, value){
     option.setAttribute("value", value);
     option.innerHTML = text;
     selector.append(option);
+    return option
+}
+
+function add_selected_option(selector, text, value) {
+    option = add_option(selector, text, value);
+    option.setAttribute("selected", "selected");
 }
 
 function date_string(date){
