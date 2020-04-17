@@ -15,11 +15,23 @@ class ViewMakePlans(View):
 
     def post(self, request):
         p = request.POST
+
+        if "OLD_NAME" in p:
+            names = p.getlist('OLD_NAME', default=[])
+            dinners = p.getlist('OLD_DINNER', default=[])
+            texts = p.getlist('OLD_TEXT', default=[])
+            ids = p.getlist('OLD_ID', default=[])
+            for name, dinner_id, text, id in zip(names, dinners, texts, ids):
+                plan = Plan.objects.get(id=int(id))
+                plan.name=name
+                if dinner_id:
+                    plan.dinner=Dinner.objects.get(id=int(dinner_id))
+                plan.text=text
+                plan.save()
         if "NEW_NAME" in p:
             names = p.getlist('NEW_NAME', default=[])
             dinners = p.getlist('NEW_DINNER', default=[])
             texts = p.getlist('NEW_TEXT', default=[])
-            print(names, dinners, texts)
             for name, dinner_id, text in zip(names, dinners, texts):
                 if not name and not dinner_id and not text:
                     continue
