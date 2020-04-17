@@ -46,6 +46,13 @@ function create_plan(parent, id, type, name, dinner_id, text, all_dinners) {
     text_input.setAttribute("name", type + "_TEXT");
     text_input.setAttribute("value", text);
 
+    // Delete button
+    delete_button = document.createElement("button");
+    delete_button.setAttribute("class", "style1");
+    delete_button.setAttribute("name", "delete_plan");
+    delete_button.setAttribute("value", id);
+    delete_button.innerHTML="DEL"
+
     // Id
     id_hidden = document.createElement("input");
     id_hidden.setAttribute("type", "hidden");
@@ -57,7 +64,9 @@ function create_plan(parent, id, type, name, dinner_id, text, all_dinners) {
     parent.appendChild(name_input);
     parent.appendChild(dinner_pick);
     parent.appendChild(text_input);
+    parent.appendChild(delete_button);
     parent.appendChild(id_hidden);
+    element_new_row(parent);
     element_new_row(parent);
 }
 
