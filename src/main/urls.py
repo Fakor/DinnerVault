@@ -10,6 +10,7 @@ from main.views.edit_meal import ViewEditMeal
 from main.views.create_label import ViewCreateLabel
 from main.views.edit_label import ViewEditLabel
 from main.views.make_plans import ViewMakePlans
+from main.views.plan_week import ViewPlanWeek
 
 urlpatterns = [
     path('overview/', login_required(ViewOverview.as_view()), name='overview'),
@@ -19,4 +20,5 @@ urlpatterns = [
     path('create_label/', login_required(ViewCreateLabel.as_view()), name='create_label'),
     path('edit_label/<int:label_id>/', login_required(ViewEditLabel.as_view()), name='edit_label'),
     path('make_plans/', login_required(ViewMakePlans.as_view()), name='make_plans'),
+    path('plan_week/', login_required(ViewPlanWeek.as_view()), name='plan_week'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
