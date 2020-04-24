@@ -28,6 +28,8 @@ class ViewMakePlans(View):
                     plan.name=name
                     if dinner_id:
                         plan.dinner=Dinner.objects.get(id=int(dinner_id))
+                    elif plan.dinner:
+                        plan.dinner = None
                     plan.text=text
                     plan.save()
             if "NEW_NAME" in p:
