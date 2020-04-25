@@ -77,3 +77,18 @@ function create_empty_plan(parent_id, dinners_json){
 
     create_plan(parent, 0, "NEW", "", "", "", dinners);
 }
+
+function create_week_plan(parent_id, dinners_json, week_json) {
+    week = JSON.parse(week_json);
+    dinners = JSON.parse(dinners_json);
+    parent = document.getElementById(parent_id);
+    var i;
+    for(i = 0; i < week.length; ++i){
+        l = document.createElement("label");
+        l.setAttribute("class", "plan");
+        l.innerHTML=week[i]["day"];
+        parent.appendChild(l);
+        element_new_row(parent);
+    }
+
+}

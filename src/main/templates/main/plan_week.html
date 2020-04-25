@@ -12,5 +12,13 @@
     <script>
         create_header("{% static '/main/images/logo.png' %}", "Plan week");
     </script>
+    <form action="{% url 'plan_week' %}" method="post">
+        {% csrf_token %}
+        <div id="week_display_id">
+            <script>
+                create_week_plan("week_display_id", "{{ dinners|escapejs }}", "{{ week|escapejs }}")
+            </script>
+        </div>
+    </form>
 </body>
 </html>

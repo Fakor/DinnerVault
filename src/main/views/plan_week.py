@@ -2,6 +2,9 @@ from django.views import View
 from django.shortcuts import render
 from django.core import serializers
 
+import json
+from django.core.serializers.json import DjangoJSONEncoder
+
 from main.models.weekly_plan import WeeklyPlan
 from main.models.dinner import Dinner, order_dinner_by_date
 
@@ -26,4 +29,5 @@ class ViewPlanWeek(View):
             weekly_plan.save()
         else:
             weekly_plan = weekly_plans[0]
-        return {'dinners': d_json, 'week': weekly_plan}
+        w_json = json.dumps(weekly_plan.to_json(), cls=DjangoJSONEncoder)
+        return {'dinners': d_json, 'week': w_json}
