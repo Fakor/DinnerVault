@@ -17,15 +17,7 @@ function display_plan(parent, plan, all_dinners) {
     create_plan(parent, id, "OLD", name, dinner_id, text, all_dinners);
 }
 
-function create_plan(parent, id, type, name, dinner_id, text, all_dinners) {
-    // Name input
-    name_input = document.createElement("input");
-    name_input.setAttribute("type", "text");
-    name_input.setAttribute("name", type + "_NAME");
-    name_input.setAttribute("maxlength", 20);
-    name_input.setAttribute("value", name);
-
-    // Selector for dinner
+function dinner_picker(type, dinner_id, all_dinners){
     let dinner_pick = document.createElement("select");
     dinner_pick.setAttribute("name", type + "_DINNER");
     dinner_pick.setAttribute("value", "");
@@ -38,6 +30,19 @@ function create_plan(parent, id, type, name, dinner_id, text, all_dinners) {
             add_option(dinner_pick, all_dinners[i]["fields"]["name"], all_dinners[i]["pk"])
         }
     }
+    return dinner_pick
+}
+
+function create_plan(parent, id, type, name, dinner_id, text, all_dinners) {
+    // Name input
+    name_input = document.createElement("input");
+    name_input.setAttribute("type", "text");
+    name_input.setAttribute("name", type + "_NAME");
+    name_input.setAttribute("maxlength", 20);
+    name_input.setAttribute("value", name);
+
+    // Selector for dinner
+    let dinner_pick = dinner_picker(type, dinner_id, all_dinners);
 
     // Text input
     text_input = document.createElement("input");
@@ -84,10 +89,17 @@ function create_week_plan(parent_id, dinners_json, week_json) {
     parent = document.getElementById(parent_id);
     var i;
     for(i = 0; i < week.length; ++i){
+        w = week[i]
+        // Day label
         l = document.createElement("label");
         l.setAttribute("class", "plan");
-        l.innerHTML=week[i]["day"];
+        l.innerHTML=w["day"];
+
+        // Dinner picker
+        dinner_pick = dinner_picker(w["day"], w["dinner"], dinners);
+
         parent.appendChild(l);
+        parent.appendChild(dinner_pick);
         element_new_row(parent);
     }
 

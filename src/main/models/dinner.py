@@ -59,6 +59,12 @@ class Dinner(models.Model):
         return len(self.labels.filter(id__in=[label.id])) > 0
 
 
+def get_dinner_or_none(dinner_id):
+    if dinner_id:
+        return Dinner.objects.get(id=int(dinner_id))
+    return None
+
+
 def order_dinner_by_date():
     return Dinner.objects.order_by('latest_date')
 
