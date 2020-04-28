@@ -19,6 +19,8 @@ class ViewPlanWeek(View):
     def post(self, request):
         p = request.POST
         w=self.get_week_plan()
+
+        # Update dinners
         w.monday_dinner = get_dinner_or_none(p["Monday_DINNER"])
         w.tuesday_dinner = get_dinner_or_none(p["Tuesday_DINNER"])
         w.wednesday_dinner = get_dinner_or_none(p["Wednesday_DINNER"])
@@ -26,6 +28,15 @@ class ViewPlanWeek(View):
         w.friday_dinner = get_dinner_or_none(p["Friday_DINNER"])
         w.saturday_dinner = get_dinner_or_none(p["Saturday_DINNER"])
         w.sunday_dinner = get_dinner_or_none(p["Sunday_DINNER"])
+
+        # Update texts
+        w.monday_text = p["Monday_TEXT"]
+        w.tuesday_text = p["Tuesday_TEXT"]
+        w.wednesday_text = p["Wednesday_TEXT"]
+        w.thursday_text = p["Thursday_TEXT"]
+        w.friday_text = p["Friday_TEXT"]
+        w.saturday_text = p["Saturday_TEXT"]
+        w.sunday_text = p["Sunday_TEXT"]
 
         w.save()
         context = self.get_context()

@@ -17,7 +17,7 @@ function display_plan(parent, plan, all_dinners) {
     create_plan(parent, id, "OLD", name, dinner_id, text, all_dinners);
 }
 
-function dinner_picker(type, dinner_id, all_dinners){
+function create_dinner_picker(type, dinner_id, all_dinners){
     let dinner_pick = document.createElement("select");
     dinner_pick.setAttribute("name", type + "_DINNER");
     dinner_pick.setAttribute("value", "");
@@ -33,6 +33,15 @@ function dinner_picker(type, dinner_id, all_dinners){
     return dinner_pick
 }
 
+function create_text_input(type, text) {
+    text_input = document.createElement("input");
+    text_input.setAttribute("type", "text");
+    text_input.setAttribute("maxlength", 30);
+    text_input.setAttribute("name", type + "_TEXT");
+    text_input.setAttribute("value", text);
+    return text_input
+}
+
 function create_plan(parent, id, type, name, dinner_id, text, all_dinners) {
     // Name input
     name_input = document.createElement("input");
@@ -42,14 +51,10 @@ function create_plan(parent, id, type, name, dinner_id, text, all_dinners) {
     name_input.setAttribute("value", name);
 
     // Selector for dinner
-    let dinner_pick = dinner_picker(type, dinner_id, all_dinners);
+    let dinner_pick = create_dinner_picker(type, dinner_id, all_dinners);
 
     // Text input
-    text_input = document.createElement("input");
-    text_input.setAttribute("type", "text");
-    text_input.setAttribute("maxlength", 30);
-    text_input.setAttribute("name", type + "_TEXT");
-    text_input.setAttribute("value", text);
+    text_input = create_text_input(type, text);
 
     // Delete button
     delete_button = document.createElement("button");
@@ -96,10 +101,15 @@ function create_week_plan(parent_id, dinners_json, week_json) {
         l.innerHTML=w["day"];
 
         // Dinner picker
-        dinner_pick = dinner_picker(w["day"], w["dinner"], dinners);
+        dinner_pick = create_dinner_picker(w["day"], w["dinner"], dinners);
+
+        // Text input
+        text_input = create_text_input(w["day"], w["text"]);
 
         parent.appendChild(l);
         parent.appendChild(dinner_pick);
+        parent.appendChild(text_input);
+
         element_new_row(parent);
     }
 
