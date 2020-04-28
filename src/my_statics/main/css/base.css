@@ -126,7 +126,8 @@ label.plan {
     font-family: FreeMono;
     font-weight: bold;
     padding: 10px 32px;
-    width: 300px;
+    width: 110px;
+    display: inline-block
 }
 
 button.eaten {
