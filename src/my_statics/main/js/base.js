@@ -210,4 +210,9 @@ function element_new_row(element) {
     element.appendChild(document.createElement("br"));
 }
 
-
+function print_dinner_info() {
+    info = document.getElementById("dinner_info").innerHTML;
+    p = document.createElement("p");
+    p.innerHTML = info.replace("\n", "<br>");
+    document.body.appendChild(p);
+}

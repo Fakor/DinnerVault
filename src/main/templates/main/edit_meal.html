@@ -35,6 +35,13 @@ function get_action(is_new, id){
         {% csrf_token %}
             <div class="column">
                 <p>{{ form.name.label }} {{ form.name }}</p>
+                <p> Info </p>
+
+                <textarea class="info"
+                          cols=50
+                          rows=20
+                          name="submit_info">
+                    {{meal.info}}</textarea>
                 <button type="submit"
                         class="style1">
                     Submit

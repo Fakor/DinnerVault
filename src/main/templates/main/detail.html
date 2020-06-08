@@ -23,24 +23,11 @@
     </form>
         {% for label in meal.labels.all %}
             <label class="dinner_label" style="background-color: {{ label.get_color_string }};">{{ label.dv }}</label>
-        {% endfor%}
-    <form action="{% url 'detail' meal.id %}" method="post">
-        {% csrf_token %}
-        <br>
-        <textarea class="note"
-                  name="submit_note"
-                  cols=50
-                  rows=6
-                  maxlength=300></textarea>
-        <br>
-        <input type="submit" value="Add note" class=style1>
-    </form>
-
-    {% if meal.notes %}
-        {% for note in meal.notes.all %}
-            <p> {{ note.created_at|date:'Y-m-d H:i' }} <br> {{ note.text }} </p>
-        {% endfor %}
-    {% endif %}
+        {% endfor%}<br>
+    <div id="dinner_info" style="display:none">{{meal.info}}</div>
+        <script>
+            print_dinner_info();
+        </script>
     <br>
     <form method="get">
         <button type="submit"
