@@ -16,6 +16,7 @@ class Dinner(models.Model):
     dates = models.ManyToManyField(Date)
     labels = models.ManyToManyField(Label)
     latest_date = models.DateField(default=datetime.date(1, 1, 1))
+    info = models.CharField(max_length=1000, default='')
 
     def add_note(self, text):
         note = Note(text=text)
@@ -58,6 +59,16 @@ class Dinner(models.Model):
     def have_label(self, label):
         return len(self.labels.filter(id__in=[label.id])) > 0
 
+    def get_info(self):
+        all_notes = []
+        for note in self.notes.all():
+            all_notes.append(note.text)
+        return '\n'.join(all_notes)
+
+    def notes_to_info(self):
+        self.info = self.get_info()
+        self.save()
+
 
 def get_dinner_or_none(dinner_id):
     if dinner_id:
@@ -76,3 +87,8 @@ def sort_dinners_by_labels(required=[], excluded=[]):
     for excl in excluded:
         objects = objects.exclude(labels__in=[excl])
     return objects
+
+
+def notes_to_info():
+    for dinner in Dinner.objects.all():
+        dinner.notes_to_info()

@@ -125,3 +125,12 @@ class MealTestCase(TestCase):
         self.assertFalse(f1.have_label(l1))
         self.assertFalse(f1.have_label(l2))
         self.assertTrue(f1.have_label(l3))
+
+    def test_get_info(self):
+        f1 = Dinner.objects.get(name="1")
+        f1.add_note("Text1")
+        f1.add_note("Text2")
+        f1.add_note("Text3")
+
+        expected_note = "Text1\nText2\nText3"
+        self.assertEqual(f1.get_info(), expected_note)

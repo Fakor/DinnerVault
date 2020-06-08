@@ -4,6 +4,7 @@
     {% load static %}
     <link rel='stylesheet' href="{% static '/main/css/base.css' %}">
     <script src="{% static '/main/js/base.js' %}"></script>
+    <script src="{% static '/main/js/overview.js' %}"></script>
     <meta charset="UTF-8">
     <title>Create label</title>
 </head>
@@ -31,13 +32,11 @@
     <tr>
         <form action="/main/overview/" method="post">
             {% csrf_token %}
-            <td><button type="submit"
-                        formmethod="get"
-                        formaction="/main/detail/{{ meal.id}}/"
-                        class="dinner"
-                        name="meal_details">
-                {{ meal.name }}
-            </button></td>
+            <div id="{{meal.id}}_info" style="display:none">{{meal.info}}</div>
+            <td id="{{meal.id}}_button"><script>
+                create_dinner_button("{{meal.name}}", "{{meal.id}}", "{{meal.id}}_info");
+            </script></td>
+
             <td><button type="submit"
                         value={{ meal.id }}
                         formmethod="post"

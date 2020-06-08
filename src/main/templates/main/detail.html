@@ -22,7 +22,7 @@
         </script>
     </form>
         {% for label in meal.labels.all %}
-            <label class="dinner_label" style="background-color: {{ label.get_color_string }};">{{ label.text }}</label>
+            <label class="dinner_label" style="background-color: {{ label.get_color_string }};">{{ label.dv }}</label>
         {% endfor%}
     <form action="{% url 'detail' meal.id %}" method="post">
         {% csrf_token %}
