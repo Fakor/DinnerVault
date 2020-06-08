@@ -54,6 +54,10 @@ p {
     font-weight: bold;
 }
 
+p.preline {
+    white-space: pre-line;
+}
+
 h2 {
     display: inline;
     padding: 0px 100px;

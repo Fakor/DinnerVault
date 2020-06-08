@@ -25,6 +25,8 @@ class ViewEditMeal(View):
         elif form.is_valid() and form_labels.is_valid():
             form.update_meal(meal)
             form_labels.update_meal_with_labels(meal)
+            meal.info = request.POST['submit_info'].strip()
+            meal.save()
             return redirect(self.detail_name, meal_id=meal.id)
         return render(request, self.template_name, self.get_context(meal_id))
 
