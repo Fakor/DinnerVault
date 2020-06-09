@@ -3,6 +3,7 @@
     --c2: #9AC09A;
     --c3: #4CAF50;
     --c4: #3B9E4F;
+    --c5: #A8D000;
 
     --dinnerHeight: 60px;
     --labelHeight: 40px;
@@ -100,6 +101,18 @@ button.top {
 
 button.dinner {
     background-color: var(--c4);
+    color: black;
+    height: var(--dinnerHeight);
+    width: 300px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    border: 4px solid black;
+    font-family: Georgia;
+}
+
+button.dinner_info {
+    background-color: var(--c5);
     color: black;
     height: var(--dinnerHeight);
     width: 300px;

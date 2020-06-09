@@ -9,7 +9,11 @@ function create_dinner_button(dinner_name, dinner_id, dinner_info_id) {
     button = document.createElement("button");
     button.setAttribute("type", "submit");
     button.setAttribute("formmethod", "get");
-    button.setAttribute("class", "dinner");
+    if(info) {
+        button.setAttribute("class", "dinner_info");
+    } else {
+        button.setAttribute("class", "dinner");
+    }
     button.setAttribute("name", "meal_details");
     button.onclick = function() {location.href="/main/detail/" + dinner_id + "/"}
     button.innerHTML = dinner_name;
