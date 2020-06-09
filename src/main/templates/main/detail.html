@@ -22,7 +22,7 @@
         </script>
     </form>
         {% for label in meal.labels.all %}
-            <label class="dinner_label" style="background-color: {{ label.get_color_string }};">{{ label.dv }}</label>
+            <label class="dinner_label" style="background-color: {{ label.get_color_string }};">{{ label.text }}</label>
         {% endfor%}<br>
     <div id="dinner_info" style="display:none">{{meal.info}}</div>
         <script>
