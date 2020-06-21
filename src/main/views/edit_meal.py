@@ -22,6 +22,7 @@ class ViewEditMeal(View):
             for date_id in request.POST.getlist('dates'):
                 d = meal.dates.filter(id=int(date_id))
                 d.delete()
+                meal.update_latest_date()
         elif form.is_valid() and form_labels.is_valid():
             form.update_meal(meal)
             form_labels.update_meal_with_labels(meal)
